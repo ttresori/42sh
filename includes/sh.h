@@ -6,7 +6,7 @@
 /*   By: jolabour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/29 04:26:44 by jolabour          #+#    #+#             */
-/*   Updated: 2019/01/07 22:14:22 by ttresori         ###   ########.fr       */
+/*   Updated: 2019/01/07 23:41:40 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ typedef struct		s_42sh
 	char			*path_history;
 	int				token_nbr;
 	t_lexer			*lexer;
+	t_lexer			*replace;
 	int				lex_pos;
 	t_stdin			*stdin;
 	t_history_mark		*history_mark;
@@ -416,6 +417,8 @@ void				print_env_array(char **env);
 /***************************************************************************** \
 |                              HISTORY                                        |
 \*****************************************************************************/
+
+char				*substitute_history(t_42sh *sh);
 
 //void				add_history(char *line, char *path_history);
 //void				init_history(char	*path_history);

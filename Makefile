@@ -6,7 +6,7 @@
 #    By: abeauvoi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/17 15:44:28 by abeauvoi          #+#    #+#              #
-#    Updated: 2019/01/07 21:39:35 by ttresori         ###   ########.fr        #
+#    Updated: 2019/01/07 22:52:42 by ttresori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRCS		= main.c list.c process.c getenv.c init_shell.c errno.c prompt.c \
 			  move_select_mode.c action_select_mode.c move_line.c get_word.c \
 			  get_operator.c lexer.c get_newline.c list_lexer.c print_lexer.c \
               init_file_history.c parser_history.c history_opt.c \
-			  move_histo.c
+			  move_histo.c substitute_history.c
 #
 # Build
 #
