@@ -6,7 +6,7 @@
 /*   By: jolabour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/29 07:47:49 by jolabour          #+#    #+#             */
-/*   Updated: 2018/12/17 03:48:44 by jolabour         ###   ########.fr       */
+/*   Updated: 2019/01/10 20:35:26 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,19 @@ void			process(t_42sh *sh)
 {
 	//BUCKET_CONTENT	*bucket_entry;
 
-	prompt(sh->env, sh);
+	prompt(sh->env, sh);	
+
+	/*sh->stdin->input = ft_strdup(sh->line_to_replace);
+		free(sh->line_to_replace);
+		sh->to_replace = 0;
+		}*/
 	if (get_line(sh) != 1)
 		return ;
 	if (sh->stdin->len_line == 0 || !sh->stdin->input)
 		return ;
 	ft_lexer(sh);
 	add_history(sh, sh->stdin->input, sh->path_history);
-	//parser(sh);
+	parser(sh);
 	/*sh->tokens = ft_strsplitset(sh->input, " \t");
 	if ((bucket_entry = ht_lookup(sh->tokens[0], &sh->hashtable)) != NULL)
 		sh->valide_path = ft_strdup(bucket_entry->path);

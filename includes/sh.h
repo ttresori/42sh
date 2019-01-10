@@ -6,7 +6,7 @@
 /*   By: jolabour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/29 04:26:44 by jolabour          #+#    #+#             */
-/*   Updated: 2018/12/17 02:42:31 by jolabour         ###   ########.fr       */
+/*   Updated: 2019/01/10 20:23:59 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,11 @@ typedef struct		s_history_mark
 	int				size;
 }					t_history_mark;
 
+typedef struct		s_var_loc
+{
+	int				HISTSIZE;
+}					t_var_loc;
+
 typedef struct		s_42sh
 {
 	char			**tokens;
@@ -190,10 +195,13 @@ typedef struct		s_42sh
 	t_lexer			*lexer;
 	int				lex_pos;
 	t_stdin			*stdin;
-	t_history_mark		*history_mark;
+	t_history_mark	*history_mark;
+	char			*line_to_replace;
+	int				to_replace;
 	t_env			*env;
 	t_term			term;
 	t_ht			hashtable;
+	t_var_loc		*var_local;
 }					t_42sh;
 
 typedef				void(*t_ak)(t_42sh *sh);
@@ -411,6 +419,8 @@ void				print_env_array(char **env);
 /***************************************************************************** \
 |                              HISTORY                                        |
 \*****************************************************************************/
+
+char				*substitute_history(t_42sh *sh);
 
 //void				add_history(char *line, char *path_history);
 //void				init_history(char	*path_history);

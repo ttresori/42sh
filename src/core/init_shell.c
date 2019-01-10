@@ -6,7 +6,7 @@
 /*   By: jolabour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/29 07:21:16 by jolabour          #+#    #+#             */
-/*   Updated: 2018/12/17 02:22:24 by jolabour         ###   ########.fr       */
+/*   Updated: 2019/01/10 20:30:13 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void		init_shell(t_42sh *sh, char **env)
 	char *pwd;
 
 	sh->env = set_list(env);
+	if (!(sh->var_local = malloc(sizeof(t_var_loc))))
+		return ;
 	path = ft_getenv(sh->env, "PATH=", sizeof("PATH=") - 1);
 	if (path)
 	{
@@ -62,6 +64,8 @@ void		init_shell(t_42sh *sh, char **env)
 	}
 	sh->copy_env = list_to_tab(sh->env, sh->copy_env);
 	sh->path_history = ft_strdup(".42sh_history");
+	sh->to_replace = 0;
+	sh->line_to_replace = NULL;
 	sh->lexer = NULL;
 	init_hashtable(sh);
 	get_term(sh);
