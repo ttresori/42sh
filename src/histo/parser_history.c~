@@ -38,8 +38,8 @@ static int	is_builtin(t_42sh *sh)
 			return (0);
 		if (sh->lexer->str[0] == '!')
 		  {
-		    substitute_history(sh);
-		    return (-1);
+		    //substitute_history(sh);
+			return (-1);
 		}
 		sh->lexer = sh->lexer->next;
 	}

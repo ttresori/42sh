@@ -81,7 +81,7 @@ void		init_shell(t_42sh *sh, char **env)
 	sh->path_history = ft_strdup(".42sh_history");
 	sh->to_replace = 0;
 	sh->line_to_replace = NULL;
-	sh->argv = NULL;
+	sh->arg = NULL;
 	sh->lexer = NULL;
 	init_hashtable(sh);
 	get_term(sh);

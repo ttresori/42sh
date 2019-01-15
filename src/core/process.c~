@@ -62,7 +62,7 @@ char	*check_access(t_42sh *sh)
 
 void			process(t_42sh *sh)
 {
-	BUCKET_CONTENT	*bucket_entry;
+	//BUCKET_CONTENT	*bucket_entry;
 
 	prompt(sh->env, sh);	
 
@@ -79,9 +79,8 @@ void			process(t_42sh *sh)
 	if (ft_strcmp(sh->stdin->input, "exit\n") == 0)
 	  reset_term(sh);
 	parser(sh);
-	
-	sh->argv->argv = ft_strsplitset(sh->stdin->input, " \t\n");
-	if ((bucket_entry = ht_lookup(sh->argv->argv[0], &sh->hashtable)) != NULL)
+	/*sh->tokens = ft_strsplitset(sh->input, " \t");
+	if ((bucket_entry = ht_lookup(sh->tokens[0], &sh->hashtable)) != NULL)
 		sh->valide_path = ft_strdup(bucket_entry->path);
 	else
 	{
@@ -96,7 +95,7 @@ void			process(t_42sh *sh)
 		return ;
 	}
 	get_fork(sh);
-	/*ft_putnbr(sh->size_of_window);
+	ft_putnbr(sh->size_of_window);
 	ft_putnbr(sh->line_pos + sh->prompt_len);
 	ft_putnbr(sh->len_line);*/
 }

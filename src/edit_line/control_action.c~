@@ -22,7 +22,7 @@ void			ctrlc_action(t_42sh *sh)
 void			ctrld_action(t_42sh *sh)
 {
 	(void)sh;
-	reset_term(sh);
+	exit(0);
 }
 
 void			paste(t_42sh *sh)
