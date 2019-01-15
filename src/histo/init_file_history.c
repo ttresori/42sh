@@ -191,7 +191,7 @@ void	add_history(t_42sh *sh, char *line, char *path)
 
 	if (line[0] == '\n')
 		return ;
-	parser(sh);
+	//parser(sh);
 	add_to_list(sh, line);
 	fd = open(path, O_CREAT | O_RDWR);
 	lseek(fd, 0, SEEK_END);

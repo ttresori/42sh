@@ -36,9 +36,9 @@ char	*check_access(t_42sh *sh)
 	char	*tmp2;
 
 	i = 0;
-	if (access(sh->tokens[0], F_OK) == 0)
+	if (access(sh->argv->argv[0], F_OK) == 0)
 	{
-		if (!(tmp2 = ft_strdup(sh->tokens[0])))
+		if (!(tmp2 = ft_strdup(sh->argv->argv[0])))
 			print_error(_ENOMEM, 1);
 		return (tmp2);
 	}
@@ -48,7 +48,7 @@ char	*check_access(t_42sh *sh)
 		{
 			if (!(tmp = ft_strjoin(sh->bin_dirs[i], "/")))
 				print_error(_ENOMEM, 1);
-			if (!(tmp2 = ft_strjoin(tmp, sh->tokens[0])))
+			if (!(tmp2 = ft_strjoin(tmp, sh->argv->argv[0])))
 				print_error(_ENOMEM, 1);
 			ft_strdel(&tmp);
 			if (access(tmp2, F_OK) == 0)
@@ -62,7 +62,8 @@ char	*check_access(t_42sh *sh)
 
 void			process(t_42sh *sh)
 {
-	BUCKET_CONTENT	*bucket_entry;
+	//BUCKET_CONTENT	*bucket_entry;
+	int j;
 
 	prompt(sh->env, sh);	
 
@@ -78,10 +79,19 @@ void			process(t_42sh *sh)
 	add_history(sh, sh->stdin->input, sh->path_history);
 	if (ft_strcmp(sh->stdin->input, "exit\n") == 0)
 	  reset_term(sh);
-	parser(sh);
-	
+	//parser(sh);
+	sh->argv = malloc(sizeof(t_argv));
 	sh->argv->argv = ft_strsplitset(sh->stdin->input, " \t\n");
-	if ((bucket_entry = ht_lookup(sh->argv->argv[0], &sh->hashtable)) != NULL)
+	check_substitute(sh);
+	j = 0;
+	while (sh->argv->argv[j])
+	{
+		ft_putstr(sh->argv->argv[j]);
+		ft_putchar(' ');
+		j++;
+	}
+	ft_putchar('\n');
+	/*if ((bucket_entry = ht_lookup(sh->argv->argv[0], &sh->hashtable)) != NULL)
 		sh->valide_path = ft_strdup(bucket_entry->path);
 	else
 	{
@@ -96,7 +106,7 @@ void			process(t_42sh *sh)
 		return ;
 	}
 	get_fork(sh);
-	/*ft_putnbr(sh->size_of_window);
+	ft_putnbr(sh->size_of_window);
 	ft_putnbr(sh->line_pos + sh->prompt_len);
 	ft_putnbr(sh->len_line);*/
 }

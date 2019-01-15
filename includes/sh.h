@@ -430,7 +430,7 @@ void				print_env_array(char **env);
 |                              HISTORY                                        |
 \*****************************************************************************/
 
-void			       substitute_history(t_42sh *sh);
+int			       substitute_history(t_42sh *sh);
 
 //void				add_history(char *line, char *path_history);
 //void				init_history(char	*path_history);
@@ -452,5 +452,6 @@ void				del_history(t_history_mark *history);
 void				add_to_list(t_42sh *sh, char *line);
 void				up_histo(t_42sh *sh);
 void				down_histo(t_42sh *sh);
+void				check_substitute(t_42sh *sh);
 
 #endif
