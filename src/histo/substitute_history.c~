@@ -11,47 +11,8 @@
 /* ************************************************************************** */
 #include "sh.h"
 
-void	modify_last_history(t_42sh *sh)
-{
-  int i;
-  int i2;
-  int size;
-  int fd;
-
-  i = 0;
-  i2 = 0;
-  size = 0;
-  fd = 0;
-  fd = open(sh->path_history, O_RDWR);
-  lseek(fd, sh->history_mark->size, SEEK_END);
-  free(sh->history_mark->begin->next->next->str);
-    while (sh->argv->argv[size] != NULL)
-      size++;
-  sh->history_mark->begin->next->next->str = (char*)malloc(sizeof(char) * size + 1);
-    size = 0;
-    while (sh->argv->argv[i] != NULL)
-    {
-      ft_putstr_fd(sh->argv->argv[i], fd);
-      while (sh->argv->argv[i2] != '\0')
-	{
-	  sh->history_mark->begin->next->next->str[size] = sh->argv->argv[i][i2];
-	  i2++;
-	  size++;
-	}
-      i2 = 0;
-      i++;
-    }
-    sh->history_mark->begin->next->next->str[size + 1] = '\0';
-    ft_putstr(sh->history_mark->begin->next->next->str);
-  ft_putstr_fd("\0", fd);
-  close(fd);
-}
-
 void	check_substitute(t_42sh *sh)
 {
-  int ask_substitute;
-
-  ask_substitute = 0;
   sh->argv->cur_str = 0;
   while (sh->argv->argv[sh->argv->cur_str] != NULL)
     {
@@ -63,16 +24,11 @@ void	check_substitute(t_42sh *sh)
 	   if (substitute_history(sh) == 0)
 			return ;
 	   else
-	     ask_substitute = 1;
 	 }
 	  else
 	    sh->argv->pos_str++;
 	}
 	sh->argv->cur_str++;
-    }
-  if (ask_substitute == 1)
-    {
-      modify_last_history(sh);
     }
 }
 
