@@ -23,7 +23,7 @@ void	modify_last_history(t_42sh *sh)
   size = 0;
   fd = 0;
   fd = open(sh->path_history, O_RDWR);
-  lseek(fd, sh->history_mark->size, SEEK_END);+
+  lseek(fd, sh->history_mark->size, SEEK_END);
   free(sh->history_mark->begin->next->next->str);
     while (sh->argv->argv[size] != NULL)
       size++;
