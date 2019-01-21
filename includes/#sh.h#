@@ -14,7 +14,16 @@
 # define SH_H
 
 # include <sys/wait.h>
-# include <signal.h>
+# include <signal.
+
+
+exit
+
+
+
+
+
+h>
 # include <termios.h>
 # include <curses.h>
 # include <pwd.h>

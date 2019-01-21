@@ -45,8 +45,8 @@ SRCS		= core/main.c edit_line/list.c core/process.c utils/getenv.c \
 
 CC 		= gcc
 OBJS		= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
-CFLAGS		= -Wall -Werror -Wextra $(addprefix -I, $(INC_DIRS)) -g3
-LFLAGS		= -L$(LIB_DIR) -lft -ltermcap
+CFLAGS		= -Wall -Wextra $(addprefix -I, $(INC_DIRS)) -g3
+LFLAGS		= -L$(LIB_DIR) -lft -ltermcap -lncurses
 LIB		= libft.a
 COMP		= $(CC) $(CFLAGS) -o $@ -c $<
 LINK		= $(CC) $(CFLAGS) $(LFLAGS) -o $@ $(filter-out $(LIB_DIR)/$(LIB), $^)
