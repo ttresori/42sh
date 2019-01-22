@@ -6,16 +6,17 @@
 /*   By: jolabour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/29 04:26:44 by jolabour          #+#    #+#             */
-/*   Updated: 2019/01/10 20:23:59 by ttresori         ###   ########.fr       */
+/*   Updated: 2019/01/22 01:17:16 by jolabour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SH_H
 # define SH_H
 
+# include <sys/stat.h>
 # include <sys/wait.h>
 # include <signal.h>
-# include <termios.h>
+# include <term.h>
 # include <curses.h>
 # include <pwd.h>
 # include <termios.h>
@@ -24,7 +25,7 @@
 # include <fcntl.h>
 # include "libft.h"
 
-
+# define OPTION_TEST 15
 # define NB_INPUT_SELECT 7
 # define NB_INPUT 16
 # define RIGHT_KEY 4414235
@@ -187,6 +188,8 @@ typedef struct		s_argv
   char		**argv;
   int		pos_str;
   int		cur_str;
+  int		error_code;
+  int		size;
 }			t_argv;
 
 typedef struct		s_42sh
@@ -215,6 +218,7 @@ typedef struct		s_42sh
 }					t_42sh;
 
 typedef				void(*t_ak)(t_42sh *sh);
+typedef				void(*t_test)(t_42sh *sh, struct stat info);
 
 /*****************************************************************************\
 |                               SELECT_MODE                                   |
@@ -453,5 +457,47 @@ void				add_to_list(t_42sh *sh, char *line);
 void				up_histo(t_42sh *sh);
 void				down_histo(t_42sh *sh);
 void				check_substitute(t_42sh *sh);
+
+/***************************************************************************** \
+|                              BUILTIN                                        |
+\*****************************************************************************/
+
+/*
+**	test
+*/
+
+void				builtin_test(t_42sh *sh);
+void				test_b(t_42sh *sh, struct stat info);
+void				test_c(t_42sh *sh, struct stat info);
+void				test_d(t_42sh *sh, struct stat info);
+void				test_e(t_42sh *sh, struct stat info);
+void				test_f(t_42sh *sh, struct stat info);
+void				test_g(t_42sh *sh, struct stat info);
+void				test_L(t_42sh *sh, struct stat info);
+void				test_p(t_42sh *sh, struct stat info);
+void				test_r(t_42sh *sh, struct stat info);
+void				test_S(t_42sh *sh, struct stat info);
+void				test_s(t_42sh *sh, struct stat info);
+void				test_u(t_42sh *sh, struct stat info);
+void				test_w(t_42sh *sh, struct stat info);
+void				test_x(t_42sh *sh, struct stat info);
+void				test_z(t_42sh *sh, struct stat info);
+
+/*
+**	echo
+*/
+
+void				builtin_echo(t_42sh *sh);
+
+/***************************************************************************** \
+|                          SUBSTITUTION                                        |
+\*****************************************************************************/
+
+/*
+**	parser
+*/
+
+void				check_substitution(t_42sh *sh);
+void				get_substitute(t_42sh *sh, int nb_del, char *substitute);
 
 #endif

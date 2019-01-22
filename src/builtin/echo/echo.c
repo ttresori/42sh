@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   control_action.c                                   :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jolabour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/04 00:09:06 by jolabour          #+#    #+#             */
-/*   Updated: 2018/12/05 17:47:14 by jolabour         ###   ########.fr       */
+/*   Created: 2019/01/19 21:32:59 by jolabour          #+#    #+#             */
+/*   Updated: 2019/01/19 21:55:12 by jolabour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-void			ctrlc_action(t_42sh *sh)
+void		builtin_echo(t_42sh *sh)
 {
+	int		i;
+
+	i = 1;
+	while (sh->argv->argv[i])
+	{
+		ft_putstr(sh->argv->argv[i]);
+		if (sh->argv->argv[i + 1] != NULL)
+			ft_putchar(' ');
+		i++;
+	}
 	ft_putchar('\n');
-	sh->stdin->input[0] = '\0';
-	sh->stdin->ctrlc = 1;
-}
-
-void			ctrld_action(t_42sh *sh)
-{
-	(void)sh;
-	reset_term(sh);
-}
-
-void			paste(t_42sh *sh)
-{
-	if (sh->stdin->str_to_paste != NULL)
-		ft_paste(sh);
 }

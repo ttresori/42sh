@@ -22,7 +22,6 @@ void			ctrlc_action(t_42sh *sh)
 void			ctrld_action(t_42sh *sh)
 {
 	(void)sh;
-	ft_putchar('\n');
 	reset_term(sh);
 }
 
