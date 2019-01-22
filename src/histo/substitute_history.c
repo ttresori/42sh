@@ -6,7 +6,7 @@
 /*   By: ttresori <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 19:41:02 by ttresori          #+#    #+#             */
-/*   Updated: 2019/01/22 10:53:32 by ttresori         ###   ########.fr       */
+/*   Updated: 2019/01/22 11:02:29 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "sh.h"
@@ -31,20 +31,20 @@ void	modify_last_history(t_42sh *sh)
     size = 0;
     while (sh->argv->argv[i] != NULL)
     {
-      ft_putstr_fd(sh->argv->argv[i], fd);
-      while (sh->argv->argv[i2] != '\0')
-	{
-	  sh->history_mark->begin->next->next->str[size] = sh->argv->argv[i][i2];
-	  i2++;
-	  size++;
-	}
-      i2 = 0;
+		ft_putstr_fd(sh->argv->argv[i], fd);
+		while (sh->argv->argv[i2] != '\0')
+		{
+			sh->history_mark->begin->next->next->str[size] = sh->argv->argv[i][i2];
+			i2++;
+			size++;
+		}
+		i2 = 0;
       i++;
     }
     sh->history_mark->begin->next->next->str[size + 1] = '\0';
     ft_putstr(sh->history_mark->begin->next->next->str);
-  ft_putstr_fd("\0", fd);
-  close(fd);
+	ft_putstr_fd("\0", fd);
+	close(fd);
 }
 
 /*void	check_substitute_histo(t_42sh *sh)
@@ -59,10 +59,10 @@ void	modify_last_history(t_42sh *sh)
       while(sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str])
 	{
 	  if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] == '!')
-	 {   
-	   if (substitute_history(sh) == 0)
-			return ;
-	   else
+	  {   
+	  if (substitute_history(sh) == 0)
+	  return ;
+	  else
 	     ask_substitute = 1;
 	 }
 	  else
@@ -126,10 +126,11 @@ int		substitute_history(t_42sh *sh)
 	  get_substitute(sh, 2,substitute);
 	  nb_del = 2;
 	  sh->argv->pos_str = sh->argv->pos_str + nb_del + ft_strlen(substitute);
+	  
 	  return (1);
-	}
+  }
   ft_strdel(&substitute);
-return (0);
+  return (0);
 }
 
 /*

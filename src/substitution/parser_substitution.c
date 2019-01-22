@@ -6,7 +6,7 @@
 /*   By: jolabour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 22:54:23 by jolabour          #+#    #+#             */
-/*   Updated: 2019/01/22 10:52:55 by ttresori         ###   ########.fr       */
+/*   Updated: 2019/01/22 11:00:41 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ void			dollar_substitute(t_42sh *sh)
 
 void			check_substitute(t_42sh *sh)
 {
+	bool call_function;
+
+	call_function = false;
 	sh->argv->cur_str = 0;
 	//check_alias(sh);
 	while (sh->argv->argv[sh->argv->cur_str] != NULL)
@@ -45,12 +48,20 @@ void			check_substitute(t_42sh *sh)
 			if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] == '$')
 				dollar_substitute(sh);
 			if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] == '!')
+			{
 				substitute_history(sh);
+				call_function = true;
+			}
 			//if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] == '~')
 			//	tilde_substitution(sh);
 			else
 				sh->argv->pos_str++;
 		}
 		sh->argv->cur_str++;
+	}
+	if (call_function == true)
+	{
+		modify_last_history(sh);
+		call_function = false;
 	}
 }
