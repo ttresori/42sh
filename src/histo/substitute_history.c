@@ -6,7 +6,7 @@
 /*   By: ttresori <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 19:41:02 by ttresori          #+#    #+#             */
-/*   Updated: 2019/01/22 10:20:35 by ttresori         ###   ########.fr       */
+/*   Updated: 2019/01/22 10:53:32 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "sh.h"
@@ -47,7 +47,7 @@ void	modify_last_history(t_42sh *sh)
   close(fd);
 }
 
-void	check_substitute_histo(t_42sh *sh)
+/*void	check_substitute_histo(t_42sh *sh)
 {
   int ask_substitute;
 
@@ -74,7 +74,7 @@ void	check_substitute_histo(t_42sh *sh)
     {
       modify_last_history(sh);
     }
-}
+}*/
 
 void	get_substitute(t_42sh *sh, int nb_del, char *substitute)
 {
@@ -122,7 +122,7 @@ int		substitute_history(t_42sh *sh)
       && (sh->argv->argv[sh->argv->cur_str][pos_str + 1] == '!'))
   {
 	  substitute = ft_strdup(sh->history_mark->begin->next->next->str);
-	  //ft_putendl(substitute);
+	  ft_putendl(substitute);
 	  get_substitute(sh, 2,substitute);
 	  nb_del = 2;
 	  sh->argv->pos_str = sh->argv->pos_str + nb_del + ft_strlen(substitute);

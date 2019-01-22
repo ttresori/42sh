@@ -6,7 +6,7 @@
 /*   By: jolabour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 22:54:23 by jolabour          #+#    #+#             */
-/*   Updated: 2019/01/22 01:27:01 by jolabour         ###   ########.fr       */
+/*   Updated: 2019/01/22 10:52:55 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void			check_substitute(t_42sh *sh)
 		{
 			if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] == '$')
 				dollar_substitute(sh);
-			//if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] == '!')
-			//	histo_substitution(sh);
+			if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] == '!')
+				substitute_history(sh);
 			//if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] == '~')
 			//	tilde_substitution(sh);
 			else
