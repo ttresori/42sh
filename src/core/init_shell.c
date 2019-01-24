@@ -79,7 +79,6 @@ void		init_shell(t_42sh *sh, char **env)
 	}
 	sh->copy_env = list_to_tab(sh->env, sh->copy_env);
 	sh->path_history = ft_strdup(".42sh_history");
-	sh->to_replace = 0;
 	sh->line_to_replace = NULL;
 	sh->argv = NULL;
 	sh->lexer = NULL;

@@ -100,8 +100,10 @@ void			process(t_42sh *sh)
 		reset_term(sh);
 	sh->argv->argv = ft_strsplitset(sh->stdin->input, " \t\n");
 	sh->argv->size = ft_len_argv(sh->argv->argv);
+	sh->substitute_on = 0;
 	check_substitute(sh);
-	add_history(sh, sh->stdin->input, sh->path_history);
+	if (sh->substitute_on == 0)
+		add_history(sh, sh->stdin->input, sh->path_history);
 	if (check_builtin(sh) != 1)
 	{
 		if ((bucket_entry = ht_lookup(sh->argv->argv[0], &sh->hashtable)) != NULL)

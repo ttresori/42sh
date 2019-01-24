@@ -174,9 +174,10 @@ typedef struct		s_history_mark
 	t_history		*begin;
 	t_history		*last;
 	t_history		*cur;
+	char 			*last_str;
 	int				pos;
 	int				size;
-}					t_history_mark;
+	}					t_history_mark;
 
 typedef struct		s_var_loc
 {
@@ -209,7 +210,7 @@ typedef struct		s_42sh
 	t_stdin			*stdin;
 	t_history_mark	*history_mark;
 	char			*line_to_replace;
-	int				to_replace;
+	int				substitute_on;
 	t_env			*env;
   	t_term			term;
   t_reset			reset_term;
