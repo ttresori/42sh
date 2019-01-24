@@ -6,7 +6,7 @@
 /*   By: ttresori <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 19:41:02 by ttresori          #+#    #+#             */
-/*   Updated: 2019/01/22 11:02:29 by ttresori         ###   ########.fr       */
+/*   Updated: 2019/01/24 04:24:11 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "sh.h"
@@ -16,66 +16,20 @@ void	modify_last_history(t_42sh *sh)
   int i;
   int i2;
   int size;
+  int nb_replace;
   int fd;
 
   i = 0;
   i2 = 0;
   size = 0;
   fd = 0;
+  nb_replace = 0;
   fd = open(sh->path_history, O_RDWR);
-  lseek(fd, sh->history_mark->size, SEEK_END);
-  free(sh->history_mark->begin->next->next->str);
-    while (sh->argv->argv[size] != NULL)
-      size++;
-  sh->history_mark->begin->next->next->str = (char*)malloc(sizeof(char) * size + 1);
-    size = 0;
-    while (sh->argv->argv[i] != NULL)
-    {
-		ft_putstr_fd(sh->argv->argv[i], fd);
-		while (sh->argv->argv[i2] != '\0')
-		{
-			sh->history_mark->begin->next->next->str[size] = sh->argv->argv[i][i2];
-			i2++;
-			size++;
-		}
-		i2 = 0;
-      i++;
-    }
-    sh->history_mark->begin->next->next->str[size + 1] = '\0';
-    ft_putstr(sh->history_mark->begin->next->next->str);
-	ft_putstr_fd("\0", fd);
-	close(fd);
+  lseek(fd, sh->history_mark->size + 1, SEEK_END);
+  ft_putstr_fd(sh->history_mark->begin->next->str, fd);
+  ft_putendl_fd("\0", fd);  
+  close(fd);
 }
-
-/*void	check_substitute_histo(t_42sh *sh)
-{
-  int ask_substitute;
-
-  ask_substitute = 0;
-  sh->argv->cur_str = 0;
-  while (sh->argv->argv[sh->argv->cur_str] != NULL)
-    {
-      sh->argv->pos_str = 0;
-      while(sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str])
-	{
-	  if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] == '!')
-	  {   
-	  if (substitute_history(sh) == 0)
-	  return ;
-	  else
-	     ask_substitute = 1;
-	 }
-	  else
-	    sh->argv->pos_str++;
-	}
-	sh->argv->cur_str++;
-    }
-  if (ask_substitute == 1)
-    {
-      modify_last_history(sh);
-    }
-}*/
-
 void	get_substitute(t_42sh *sh, int nb_del, char *substitute)
 {
   int i;
@@ -101,7 +55,7 @@ void	get_substitute(t_42sh *sh, int nb_del, char *substitute)
   free(tmp);
   free(tmp2);
   free(tmp3);
-	}
+  }
 }
 
 int		substitute_history(t_42sh *sh)
@@ -113,7 +67,6 @@ int		substitute_history(t_42sh *sh)
 
   replace_true = 0;
   sh->to_replace = 0;
-  sh->argv->pos_str = 0;
   pos_str = 0;  
   nb_del = 0;
   substitute = NULL;
@@ -121,12 +74,11 @@ int		substitute_history(t_42sh *sh)
       && (sh->argv->argv[sh->argv->cur_str][pos_str + 1] != '\0')
       && (sh->argv->argv[sh->argv->cur_str][pos_str + 1] == '!'))
   {
-	  substitute = ft_strdup(sh->history_mark->begin->next->next->str);
+	  substitute = ft_strdup(sh->history_mark->begin->next->str);
 	  ft_putendl(substitute);
 	  get_substitute(sh, 2,substitute);
 	  nb_del = 2;
-	  sh->argv->pos_str = sh->argv->pos_str + nb_del + ft_strlen(substitute);
-	  
+	  sh->argv->pos_str = sh->argv->pos_str + ft_strlen(substitute);
 	  return (1);
   }
   ft_strdel(&substitute);

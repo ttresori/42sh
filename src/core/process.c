@@ -6,7 +6,7 @@
 /*   By: jolabour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/29 07:47:49 by jolabour          #+#    #+#             */
-/*   Updated: 2019/01/22 10:49:07 by ttresori         ###   ########.fr       */
+/*   Updated: 2019/01/24 04:32:30 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	get_fork(t_42sh *sh)
 		wait(0);
 	if (father == 0)
 	{
-		if ((status = execve(sh->valide_path, sh->tokens, sh->copy_env)) == -1)
-			ft_putendl_fd(sh->tokens[0], 2);
+		if ((status = execve(sh->valide_path, sh->argv->argv, sh->copy_env)) == -1)
+			ft_putendl_fd("sh->tokens[0]", 2);
 		exit(status);
 	}
 }
@@ -96,12 +96,12 @@ void			process(t_42sh *sh)
 	if (sh->stdin->len_line == 0 || !sh->stdin->input)
 		return ;
 	ft_lexer(sh);
-	add_history(sh, sh->stdin->input, sh->path_history);
 	if (ft_strcmp(sh->stdin->input, "exit\n") == 0)
 		reset_term(sh);
 	sh->argv->argv = ft_strsplitset(sh->stdin->input, " \t\n");
 	sh->argv->size = ft_len_argv(sh->argv->argv);
 	check_substitute(sh);
+	add_history(sh, sh->stdin->input, sh->path_history);
 	if (check_builtin(sh) != 1)
 	{
 		if ((bucket_entry = ht_lookup(sh->argv->argv[0], &sh->hashtable)) != NULL)
