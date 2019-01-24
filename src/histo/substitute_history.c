@@ -75,15 +75,16 @@ int		substitute_history(t_42sh *sh)
       && (sh->argv->argv[sh->argv->cur_str][pos_str + 1] != '\0')
       && (sh->argv->argv[sh->argv->cur_str][pos_str + 1] == '!'))
   {
-	  substitute = ft_strdup(sh->history_mark->begin->next->str);
+	  substitute = ft_strdup(sh->history_mark->begin->next->str); //README 1)
 	  ft_putendl(substitute);
     sh->history_mark->last_str = ft_strdup(substitute);
 	  get_substitute(sh, 2,substitute);
 	  nb_del = 2;
 	  sh->argv->pos_str = sh->argv->pos_str + ft_strlen(substitute);
+    free(substitute);
 	  return (1);
   }
-  ft_strdel(&substitute);
+  free(substitute);
   return (0);
 }
 
