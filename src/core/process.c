@@ -6,7 +6,7 @@
 /*   By: jolabour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/29 07:47:49 by jolabour          #+#    #+#             */
-/*   Updated: 2019/01/24 04:32:30 by ttresori         ###   ########.fr       */
+/*   Updated: 2019/01/25 02:40:03 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,9 @@ void			process(t_42sh *sh)
 
 	prompt(sh->env, sh);
 
-	if (get_line(sh) != 1)
-		return ;
+	if (sh->need_get_line == true)
+		if (get_line(sh) != 1)
+			return ;
 	if (sh->stdin->len_line == 0 || !sh->stdin->input)
 		return ;
 	ft_lexer(sh);

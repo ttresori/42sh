@@ -6,7 +6,7 @@
 /*   By: jolabour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/01 17:07:05 by jolabour          #+#    #+#             */
-/*   Updated: 2018/12/03 18:57:16 by jolabour         ###   ########.fr       */
+/*   Updated: 2019/01/25 02:36:18 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void		move_to_right(t_42sh *sh)
 		sh->stdin->line_pos++;
 		sh->stdin->cursor_pos++;
 	}
+	if (sh->argv->pos_str < sh->stdin->len_line)
+		sh->argv->pos_str++;
 }
 
 void		move_to_start(t_42sh *sh)
@@ -90,4 +92,6 @@ void		move_to_left(t_42sh *sh)
 		sh->stdin->line_pos--;
 		sh->stdin->cursor_pos--;
 	}
+	if (sh->argv->pos_str > 0)
+		sh->argv->pos_str--;
 }

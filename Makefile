@@ -6,7 +6,7 @@
 #    By: abeauvoi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/17 15:44:28 by abeauvoi          #+#    #+#              #
-#    Updated: 2019/01/22 01:18:27 by jolabour         ###   ########.fr        #
+#    Updated: 2019/01/25 02:16:26 by ttresori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRCS		= core/main.c edit_line/list.c core/process.c utils/getenv.c \
 			  histo/init_file_history.c histo/parser_history.c histo/history_opt.c \
 			  edit_line/move_histo.c histo/substitute_history.c \
 			  builtin/test/test.c builtin/test/test_bcdef.c builtin/test/test_glprS.c \
-			  builtin/test/test_suwxz.c builtin/echo/echo.c substitution/parser_substitution.c
+			  builtin/test/test_suwxz.c builtin/echo/echo.c substitution/parser_substitution.c \
+			  builtin/tabulation/tabulation.c
 #
 # Build
 #
@@ -69,6 +70,7 @@ $(LIB_DIR)/$(LIB):
 
 $(NAME): $(LIB_DIR)/$(LIB) $(OBJS)
 	@$(LINK)
+	make -C ./src/builtin/tabulation/ft_select
 	@echo "completed compilation \033[1;32m√\033[0m"
 
 $(OBJS_DIR)/%.o: %.c
@@ -83,6 +85,7 @@ $(OBJS_DIR)/%.o: %.c
 	@mkdir -p $(OBJS_DIR)/builtin
 	@mkdir -p $(OBJS_DIR)/builtin/test
 	@mkdir -p $(OBJS_DIR)/builtin/echo
+	@mkdir -p $(OBJS_DIR)/builtin/tabulation	
 	@mkdir -p $(OBJS_DIR)/substitution
 	@$(COMP)
 

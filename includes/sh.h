@@ -6,7 +6,7 @@
 /*   By: jolabour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/29 04:26:44 by jolabour          #+#    #+#             */
-/*   Updated: 2019/01/22 11:01:59 by ttresori         ###   ########.fr       */
+/*   Updated: 2019/01/25 02:43:08 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include "libft.h"
 
 # define OPTION_TEST 15
-# define NB_INPUT_SELECT 7
-# define NB_INPUT 16
+# define NB_INPUT_SELECT 8
+# define NB_INPUT 17
 # define RIGHT_KEY 4414235
 # define LEFT_KEY 4479771
 # define HOME 4741915
@@ -205,6 +205,7 @@ typedef struct		s_42sh
 	char			**copy_env;
 	char			*path_history;
 	int				token_nbr;
+	bool			need_get_line;
 	t_lexer			*lexer;
 	int				lex_pos;
 	t_stdin			*stdin;
@@ -500,5 +501,11 @@ void				builtin_echo(t_42sh *sh);
 
 void				check_substitution(t_42sh *sh);
 void				get_substitute(t_42sh *sh, int nb_del, char *substitute);
+
+/***************************************************************************** \
+|                            TABULATION                                        |
+\*****************************************************************************/
+
+void				show_suggest(t_42sh *sh);
 
 #endif
