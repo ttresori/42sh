@@ -1,0 +1,8 @@
+#include "libft.h"
+
+void	ft_putl_blue(char *str)
+{
+	ft_putstr(BLUE);
+	ft_putstr(str);
+	ft_putendl(NORMAL);
+}

@@ -6,7 +6,7 @@
 /*   By: ttresori <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 19:41:02 by ttresori          #+#    #+#             */
-/*   Updated: 2019/01/24 04:24:11 by ttresori         ###   ########.fr       */
+/*   Updated: 2019/01/25 18:29:52 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "sh.h"
@@ -78,12 +78,13 @@ int		substitute_history(t_42sh *sh)
       && (sh->argv->argv[sh->argv->cur_str][pos_str + 1] == '!'))
   {
 	  substitute = ft_strdup(sh->history_mark->begin->next->str); //README 1)sss
+//add_to_list(sh, substitute);
 	  ft_putendl(substitute);
-    sh->history_mark->last_str = ft_strdup(substitute);
+	  sh->history_mark->last_str = ft_strdup(substitute);
 	  get_substitute(sh, 2,substitute);
 	  nb_del = 2;
 	  sh->argv->pos_str = sh->argv->pos_str + ft_strlen(substitute);
-    free(substitute);
+	  free(substitute);
 	  return (1);
   }
   ft_memdel((void**)substitute);

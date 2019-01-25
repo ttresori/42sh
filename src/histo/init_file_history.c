@@ -6,7 +6,7 @@
 /*   By: ttresori <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 17:03:05 by ttresori          #+#    #+#             */
-/*   Updated: 2019/01/24 04:26:28 by ttresori         ###   ########.fr       */
+/*   Updated: 2019/01/25 20:31:03 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ t_history *new_history(char *line)
 	if (!(new = malloc(sizeof(t_history))))
 		print_error(_ENOMEM, 1);
 	new->str = ft_strdup(line);
+	ft_putchar('\n');
+	ft_puts_blue(new->str);
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
@@ -153,7 +155,7 @@ void	add_to_list(t_42sh *sh, char *line)
 		sh->history_mark->begin->prev = new;
 		sh->history_mark->begin = new;
 	}
-		sh->history_mark->size++;
+	sh->history_mark->size++;
 }
 
 void	init_history(t_42sh *sh, char *path)
