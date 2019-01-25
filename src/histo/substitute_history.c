@@ -24,6 +24,7 @@ void	modify_last_history(t_42sh *sh)
   size = 0;
   fd = 0;
   nb_replace = 0;
+  add_to_list(sh, sh->history_mark->last_str);
   fd = open(sh->path_history, O_RDWR);
   lseek(fd, sh->history_mark->size + 1, SEEK_END);
   ft_putstr_fd(sh->history_mark->last_str, fd);
@@ -32,6 +33,7 @@ void	modify_last_history(t_42sh *sh)
   sh->history_mark->last_str = NULL;
   close(fd);
 }
+
 void	get_substitute(t_42sh *sh, int nb_del, char *substitute)
 {
   int i;
@@ -75,7 +77,7 @@ int		substitute_history(t_42sh *sh)
       && (sh->argv->argv[sh->argv->cur_str][pos_str + 1] != '\0')
       && (sh->argv->argv[sh->argv->cur_str][pos_str + 1] == '!'))
   {
-	  substitute = ft_strdup(sh->history_mark->begin->next->str); //README 1)
+	  substitute = ft_strdup(sh->history_mark->begin->next->str); //README 1)sss
 	  ft_putendl(substitute);
     sh->history_mark->last_str = ft_strdup(substitute);
 	  get_substitute(sh, 2,substitute);
@@ -84,7 +86,7 @@ int		substitute_history(t_42sh *sh)
     free(substitute);
 	  return (1);
   }
-  free(substitute);
+  ft_memdel((void**)substitute);
   return (0);
 }
 

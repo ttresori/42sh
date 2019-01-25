@@ -48,9 +48,8 @@ void			check_substitute(t_42sh *sh)
 			{
 				substitute_history(sh);
 				sh->substitute_on = 1;
-				add_to_list(sh, sh->history_mark->last_str);
 				modify_last_history(sh);
-				//add_history(sh, sh->argv->argv[sh->argv->cur_str], sh->path_history);
+				//add_history(sh,  sh->history_mark->last_str, sh->path_history);
 			}
 			//if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] == '~')
 			//	tilde_substitution(sh);

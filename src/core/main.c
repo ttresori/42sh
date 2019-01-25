@@ -32,13 +32,13 @@ int			main(int argc, char **argv, char **env)
 		del_lexer(&sh.lexer);
 		del_history(sh.history_mark);
 		i = 0;
-		while (sh.argv->argv[i])
+		/*while (sh.argv->argv[i])
 		{
 			ft_strdel(&sh.argv->argv[i]);
 			i++;
-		}
-		ft_strdel(&sh.argv->argv[i]);
-		ft_strdel(sh.argv->argv);
+		}*/
+		//ft_strdel(&sh.argv->argv[i]);
+		ft_free_split(sh.argv->argv);
 		//free(sh.lexer);
 		//free(sh.lexer);
 		//free_all(&sh);
