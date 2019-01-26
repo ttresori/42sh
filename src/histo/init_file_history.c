@@ -83,7 +83,7 @@ void	up_history(t_42sh *sh)
 void		del_history(t_history_mark *history)
 {
 	t_history	*tmp;
-	
+
 	while (history->size > 0)
 	{
 		tmp = history->begin;
@@ -129,8 +129,6 @@ t_history *new_history(char *line)
 	if (!(new = malloc(sizeof(t_history))))
 		print_error(_ENOMEM, 1);
 	new->str = ft_strdup(line);
-	ft_putchar('\n');
-	ft_puts_blue(new->str);
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);

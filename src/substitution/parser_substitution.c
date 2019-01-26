@@ -19,7 +19,7 @@ void			substitute_param(t_42sh *sh)
 	if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str + 2] == '?' && sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str + 3] == '}')
 	{
 		substitute = ft_itoa(sh->argv->error_code);
-		get_substitute(sh, 4, substitute);
+	//	get_substitute(sh, 4, substitute);
 		sh->argv->pos_str = sh->argv->pos_str + ft_strlen(substitute);
 		ft_strdel(&substitute);
 	}
@@ -42,18 +42,18 @@ void			check_substitute(t_42sh *sh)
 		sh->argv->pos_str = 0;
 		while (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] != '\0')
 		{
-			if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] == '$')
-				dollar_substitute(sh);
-			if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] == '!')
+			/*if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] == '$')
+				dollar_substitute(sh);*/
+			/*if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] == '!')
 			{
-				substitute_history(sh);
+				//substitute_history(sh);
 				sh->substitute_on = 1;
-				modify_last_history(sh);
+				//modify_last_history(sh);
 				//add_history(sh,  sh->history_mark->last_str, sh->path_history);
-			}
+			}*/
 			//if (sh->argv->argv[sh->argv->cur_str][sh->argv->pos_str] == '~')
 			//	tilde_substitution(sh);
-			else
+			//else
 				sh->argv->pos_str++;
 		}
 		sh->argv->cur_str++;

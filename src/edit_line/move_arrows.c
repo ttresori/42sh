@@ -33,8 +33,6 @@ void		move_to_right(t_42sh *sh)
 		sh->stdin->line_pos++;
 		sh->stdin->cursor_pos++;
 	}
-	if (sh->argv->pos_str < sh->stdin->len_line)
-		sh->argv->pos_str++;
 }
 
 void		move_to_start(t_42sh *sh)
@@ -92,6 +90,4 @@ void		move_to_left(t_42sh *sh)
 		sh->stdin->line_pos--;
 		sh->stdin->cursor_pos--;
 	}
-	if (sh->argv->pos_str > 0)
-		sh->argv->pos_str--;
 }

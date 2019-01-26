@@ -436,7 +436,10 @@ void				print_env_array(char **env);
 |                              HISTORY                                        |
 \*****************************************************************************/
 
-int			       substitute_history(t_42sh *sh);
+void 				substitute_history(t_42sh *sh, int *i);
+char 				*search_history_begin(t_42sh *sh, int nb);
+char 				*search_history_last(t_42sh *sh, int nb);
+int 				get_nb_history(t_42sh *sh, int pos, int *nb_del);
 
 //void				add_history(char *line, char *path_history);
 //void				init_history(char	*path_history);
@@ -499,8 +502,8 @@ void				builtin_echo(t_42sh *sh);
 **	parser
 */
 
-void				check_substitution(t_42sh *sh);
-void				get_substitute(t_42sh *sh, int nb_del, char *substitute);
+void 				check_substitute_history(t_42sh *sh);
+void				get_substitute(t_42sh *sh, int i, char *substitute, int nb_del);
 
 /***************************************************************************** \
 |                            TABULATION                                        |

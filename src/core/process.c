@@ -91,7 +91,7 @@ void			process(t_42sh *sh)
 
 	prompt(sh->env, sh);
 
-	if (sh->need_get_line == true)
+	//if (sh->need_get_line == true)
 		if (get_line(sh) != 1)
 			return ;
 	if (sh->stdin->len_line == 0 || !sh->stdin->input)
@@ -99,12 +99,11 @@ void			process(t_42sh *sh)
 	ft_lexer(sh);
 	if (ft_strcmp(sh->stdin->input, "exit\n") == 0)
 		reset_term(sh);
+	check_substitute_history(sh);
+	add_history(sh, sh->stdin->input, sh->path_history);
 	sh->argv->argv = ft_strsplitset(sh->stdin->input, " \t\n");
 	sh->argv->size = ft_len_argv(sh->argv->argv);
-	sh->substitute_on = 0;
 	check_substitute(sh);
-	if (sh->substitute_on == 0)
-		add_history(sh, sh->stdin->input, sh->path_history);
 	if (check_builtin(sh) != 1)
 	{
 		if ((bucket_entry = ht_lookup(sh->argv->argv[0], &sh->hashtable)) != NULL)

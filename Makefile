@@ -70,7 +70,6 @@ $(LIB_DIR)/$(LIB):
 
 $(NAME): $(LIB_DIR)/$(LIB) $(OBJS)
 	@$(LINK)
-	make -C ./src/builtin/tabulation/ft_select
 	@echo "completed compilation \033[1;32m√\033[0m"
 
 $(OBJS_DIR)/%.o: %.c

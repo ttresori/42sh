@@ -34,64 +34,106 @@ void	modify_last_history(t_42sh *sh)
   close(fd);
 }
 
-void	get_substitute(t_42sh *sh, int nb_del, char *substitute)
+char *search_history_begin(t_42sh *sh, int nb)
 {
-  int i;
+    int            i;
+    t_history   *tmp;
+    char        *substitute;
+    int         size;
+
+    i = 1;
+    tmp = NULL;
+    substitute = NULL;
+    size = sh->history_mark->size;
+    tmp = sh->history_mark->last;
+    while (nb != 1)
+    {
+        if (i >= size)
+            return (NULL);
+        tmp = tmp->prev;
+        nb--;
+        i++;
+    }
+    ft_puts_yellow(tmp->str);
+    substitute = ft_strdup(tmp->str);
+    return (substitute);
+}
+
+char *search_history_last(t_42sh *sh, int nb)
+{
+    t_history   *tmp;
+    char        *substitute;
+    int         size;
+
+    tmp = NULL;
+    substitute = NULL;
+    size = sh->history_mark->size;
+    tmp = sh->history_mark->begin->next;
+    while (nb != -1)
+    {
+        if (size <= 1)
+            return (NULL);
+        tmp = tmp->next;
+        nb++;
+        size--;
+    }
+    substitute = ft_strdup(tmp->str);
+    return (substitute);
+}
+
+void	get_substitute(t_42sh *sh, int i, char *substitute, int nb_del)
+{
   char *tmp;
   char *tmp2;
   char *tmp3;
 
-  i = 0;
-  if (ft_strlen(sh->argv->argv[sh->argv->cur_str]) - nb_del == 0)
-	{
-		ft_strdel(&sh->argv->argv[sh->argv->cur_str]);
-		sh->argv->argv[sh->argv->cur_str] = ft_strdup(substitute);
-	}
+  tmp = NULL;
+  tmp2 = NULL;
+  tmp3 = NULL;
+  if (i != 0)
+  {
+    tmp = ft_strsub(sh->stdin->input, 0, i);
+    tmp3 = ft_strjoin(tmp, substitute);
+  }
   else
   {
-  if (!(tmp = ft_strsub(sh->argv->argv[sh->argv->cur_str], 0, sh->argv->pos_str)))
-    return ;
-  tmp2 = ft_strsub(sh->argv->argv[sh->argv->cur_str], (sh->argv->pos_str + nb_del),
-		   (ft_strlen(sh->argv->argv[sh->argv->cur_str]) - (ft_strlen(tmp) - nb_del)));
-    tmp3 = ft_strjoin(tmp, substitute);
-  ft_strdel(&sh->argv->argv[sh->argv->cur_str]);
-  sh->argv->argv[sh->argv->cur_str] = ft_strjoin(tmp3, tmp2);
-  free(tmp);
-  free(tmp2);
-  free(tmp3);
-  }
+    tmp3 = ft_strdup(substitute);
+    tmp = ft_strdup("");
+    }
+  tmp2 = ft_strsub(sh->stdin->input, i + nb_del, ft_strlen(sh->stdin->input)
+       - ft_strlen(tmp) - nb_del);
+  ft_strdel(&sh->stdin->input);
+  sh->stdin->input = ft_strjoin(tmp3, tmp2);
+  ft_puts_red(sh->stdin->input);
+  ft_strdel(&tmp);
+  ft_strdel(&tmp2);
+  ft_strdel(&tmp3);
 }
 
-int		substitute_history(t_42sh *sh)
+int get_nb_history(t_42sh *sh, int pos, int *nb_del)
 {
-  int pos_str;
-  int nb_del;
-  int replace_true;
-  char *substitute;
+    int i;
+    int nb;
+    char *nb_to_find;
 
-  replace_true = 0;
-  pos_str = 0;  
-  nb_del = 0;
-  substitute = NULL;
-  if ((sh->argv->argv[sh->argv->cur_str][pos_str] == '!')
-      && (sh->argv->argv[sh->argv->cur_str][pos_str + 1] != '\0')
-      && (sh->argv->argv[sh->argv->cur_str][pos_str + 1] == '!'))
-  {
-	  substitute = ft_strdup(sh->history_mark->begin->next->str); //README 1)sss
-//add_to_list(sh, substitute);
-	  ft_putendl(substitute);
-	  sh->history_mark->last_str = ft_strdup(substitute);
-	  get_substitute(sh, 2,substitute);
-	  nb_del = 2;
-	  sh->argv->pos_str = sh->argv->pos_str + ft_strlen(substitute);
-	  free(substitute);
-	  return (1);
-  }
-  ft_memdel((void**)substitute);
-  return (0);
+    i = 0;
+    nb = 0;
+    if (!(nb_to_find = (char*)malloc(sizeof(char) * ft_strlen(sh->stdin->input))))
+        print_error(_ENOMEM, 1);
+    if (sh->stdin->input[pos + 1] == '-')
+    {
+        nb_to_find[i] = '-';
+        i++;
+        pos++;
+    }
+    while(sh->stdin->input[pos + 1] && (sh->stdin->input[pos + 1] >= '0' && sh->stdin->input[pos + 1] <= '9'))
+    {
+        nb_to_find[i] = sh->stdin->input[pos + 1];
+        i++;
+        pos++;
+    }
+    nb_to_find[i] = '\0';
+    *nb_del = ft_strlen(nb_to_find) + 1;
+    nb = ft_atoi(nb_to_find);
+    return (nb);
 }
-
-/*
-"! + numéro -> fin numéro"
-"! + lettres -> espace ou! -> ! "
-*/
