@@ -121,5 +121,6 @@ void			process(t_42sh *sh)
 			return ;
 		}
 		get_fork(sh);
+		ft_strdel(&sh->valide_path);
 	}
 }

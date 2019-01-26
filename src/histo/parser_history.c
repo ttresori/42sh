@@ -51,7 +51,7 @@ void substitute_history(t_42sh *sh, int *i)
 		return;
 	if (substitute == NULL)
 	{
-		print_error(_ENOMEM, 0);
+		ft_putendl("aled");
 		// add error_return
 		return ;
 	}
@@ -64,6 +64,8 @@ void check_substitute_history(t_42sh *sh)
 {
 	int i;
 
+	if (sh->history_mark->size == 1)
+		return ;
 	i = 0;
 	while (sh->stdin->input[i])
 	{

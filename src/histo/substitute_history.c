@@ -41,10 +41,12 @@ char *search_history_begin(t_42sh *sh, int nb)
     char        *substitute;
     int         size;
 
+    if (nb == 0)
+        return (NULL);
     i = 1;
     tmp = NULL;
     substitute = NULL;
-    size = sh->history_mark->size;
+    size = sh->history_mark->size - 1;
     tmp = sh->history_mark->last;
     while (nb != 1)
     {
@@ -54,7 +56,6 @@ char *search_history_begin(t_42sh *sh, int nb)
         nb--;
         i++;
     }
-    ft_puts_yellow(tmp->str);
     substitute = ft_strdup(tmp->str);
     return (substitute);
 }
@@ -64,11 +65,14 @@ char *search_history_last(t_42sh *sh, int nb)
     t_history   *tmp;
     char        *substitute;
     int         size;
-
+    if (nb == 0)
+        return (NULL);
     tmp = NULL;
     substitute = NULL;
-    size = sh->history_mark->size;
+    size = sh->history_mark->size - 1;
     tmp = sh->history_mark->begin->next;
+    if (nb == 0)
+        return (NULL);
     while (nb != -1)
     {
         if (size <= 1)
@@ -120,7 +124,7 @@ int get_nb_history(t_42sh *sh, int pos, int *nb_del)
     nb = 0;
     if (!(nb_to_find = (char*)malloc(sizeof(char) * ft_strlen(sh->stdin->input))))
         print_error(_ENOMEM, 1);
-    if (sh->stdin->input[pos + 1] == '-')
+    if (sh->stdin->input[pos + 1] == '-' && (sh->stdin->input[pos + 2] >= '0' && sh->stdin->input[pos + 2] <= '9'))
     {
         nb_to_find[i] = '-';
         i++;
@@ -135,5 +139,6 @@ int get_nb_history(t_42sh *sh, int pos, int *nb_del)
     nb_to_find[i] = '\0';
     *nb_del = ft_strlen(nb_to_find) + 1;
     nb = ft_atoi(nb_to_find);
+    ft_strdel(&nb_to_find);
     return (nb);
 }
