@@ -440,6 +440,8 @@ void 				substitute_history(t_42sh *sh, int *i);
 char 				*search_history_begin(t_42sh *sh, int nb);
 char 				*search_history_last(t_42sh *sh, int nb);
 int 				get_nb_history(t_42sh *sh, int pos, int *nb_del);
+char 				*search_history_char(t_42sh *sh, char **to_find);
+char 				*search_str_input(t_42sh *sh, int start, int *nb_del);
 
 //void				add_history(char *line, char *path_history);
 //void				init_history(char	*path_history);

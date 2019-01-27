@@ -60,6 +60,58 @@ char *search_history_begin(t_42sh *sh, int nb)
     return (substitute);
 }
 
+char *search_str_input(t_42sh *sh, int start, int *nb_del)
+{
+    int     i;
+    char    *str_to_find;
+    char    *sub;
+
+    str_to_find = NULL;
+    sub = NULL;
+    i = 0;
+    if (!(str_to_find = (char*)malloc(sizeof(char) 
+        * (ft_strlen(sh->stdin->input) + 1))))
+        print_error(_ENOMEM, 1);
+   while (sh->stdin->input[start] 
+        && (sh->stdin->input[start] != ' ' 
+        && sh->stdin->input[start] != '\t')
+        && sh->stdin->input[start] != '!'
+        && sh->stdin->input[start] != '\n')
+    {
+        str_to_find[i] = sh->stdin->input[start];
+        i++;
+        start++;
+    }
+    str_to_find[i] = '\0';
+    *nb_del = ft_strlen(str_to_find) + 1;
+    sub = search_history_char(sh, &str_to_find);
+    ft_strdel(&str_to_find);
+    return (sub);
+}
+
+char *search_history_char(t_42sh *sh, char **to_find)
+{
+    char        *sub;
+    int         len_str_to_find;
+    int         size_list;
+    t_history   *tmp;
+
+    sub = NULL;
+    tmp = NULL;
+    tmp = sh->history_mark->begin->next;
+    size_list = sh->history_mark->size - 1;
+    len_str_to_find = ft_strlen(*to_find);
+    while (size_list >= 1)
+    {
+        if (ft_strncmp(*to_find, tmp->str, len_str_to_find) == 0)
+            return ((sub = ft_strdup(tmp->str)));
+        tmp = tmp->next;
+        size_list--;
+    }
+    ft_puts_green("OK");
+    return (NULL);
+}
+
 char *search_history_last(t_42sh *sh, int nb)
 {
     t_history   *tmp;
@@ -124,13 +176,15 @@ int get_nb_history(t_42sh *sh, int pos, int *nb_del)
     nb = 0;
     if (!(nb_to_find = (char*)malloc(sizeof(char) * ft_strlen(sh->stdin->input))))
         print_error(_ENOMEM, 1);
-    if (sh->stdin->input[pos + 1] == '-' && (sh->stdin->input[pos + 2] >= '0' && sh->stdin->input[pos + 2] <= '9'))
+    if (sh->stdin->input[pos + 1] == '-' && (sh->stdin->input[pos + 2] >= '0' 
+    && sh->stdin->input[pos + 2] <= '9'))
     {
         nb_to_find[i] = '-';
         i++;
         pos++;
     }
-    while(sh->stdin->input[pos + 1] && (sh->stdin->input[pos + 1] >= '0' && sh->stdin->input[pos + 1] <= '9'))
+    while(sh->stdin->input[pos + 1] && (sh->stdin->input[pos + 1] >= '0' 
+    && sh->stdin->input[pos + 1] <= '9'))
     {
         nb_to_find[i] = sh->stdin->input[pos + 1];
         i++;

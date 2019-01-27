@@ -47,6 +47,8 @@ void substitute_history(t_42sh *sh, int *i)
 	}
 	else if (sh->stdin->input[*i + 1] == '!')
 		substitute  = ft_strdup(sh->history_mark->begin->next->str);
+	else if (sh->stdin->input[*i + 1] >= 'a' && sh->stdin->input[*i + 1] <= 'z')
+		substitute = search_str_input(sh, *i + 1, &nb_del);
 	else
 		return;
 	if (substitute == NULL)
