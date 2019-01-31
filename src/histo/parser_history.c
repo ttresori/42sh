@@ -54,6 +54,7 @@ void substitute_history(t_42sh *sh, int *i)
 	if (substitute == NULL)
 	{
 		ft_putendl("aled");
+		sh->history_mark->error_code = 1;
 		// add error_return
 		return ;
 	}

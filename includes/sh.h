@@ -27,13 +27,14 @@
 
 # define OPTION_TEST 15
 # define NB_INPUT_SELECT 8
-# define NB_INPUT 17
+# define NB_INPUT 18
 # define RIGHT_KEY 4414235
 # define LEFT_KEY 4479771
 # define HOME 4741915
 # define END 4610843
 # define CTRL_C 3
 # define CTRL_D 4
+# define CTRL_R 18
 # define DEL 127
 # define UP_KEY 4283163
 # define DOWN_KEY 4348699
@@ -175,9 +176,26 @@ typedef struct		s_history_mark
 	t_history		*last;
 	t_history		*cur;
 	char 			*last_str;
+	int				error_code;
 	int				pos;
 	int				size;
-	}					t_history_mark;
+}					t_history_mark;
+
+typedef struct		s_alias
+{
+	char			*to_sub;
+	char			*sub;
+	struct	s_alias *prev;
+	struct	s_alias	*next;
+}					t_alias;
+
+typedef struct		s_alias_mark
+{
+	t_alias			*begin;
+	t_alias			*last;
+	int				size;
+
+}					t_alias_mark;
 
 typedef struct		s_var_loc
 {
@@ -214,7 +232,8 @@ typedef struct		s_42sh
 	int				substitute_on;
 	t_env			*env;
   	t_term			term;
-  t_reset			reset_term;
+ 	t_reset			reset_term;
+	t_alias_mark	*alias;
   	t_ht			hashtable;
 	t_var_loc		*var_local;
 }					t_42sh;
@@ -465,6 +484,7 @@ void				up_histo(t_42sh *sh);
 void				down_histo(t_42sh *sh);
 void				check_substitute(t_42sh *sh);
 void				modify_last_history(t_42sh *sh);
+void				ctrlr_action(t_42sh *sh);
 /***************************************************************************** \
 |                              BUILTIN                                        |
 \*****************************************************************************/
@@ -495,6 +515,11 @@ void				test_z(t_42sh *sh, struct stat info);
 */
 
 void				builtin_echo(t_42sh *sh);
+
+/*
+** alias
+*/
+void    builtin_alias(t_42sh *sh);
 
 /***************************************************************************** \
 |                          SUBSTITUTION                                        |

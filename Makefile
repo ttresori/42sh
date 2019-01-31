@@ -41,14 +41,14 @@ SRCS		= core/main.c edit_line/list.c core/process.c utils/getenv.c \
 			  edit_line/move_histo.c histo/substitute_history.c \
 			  builtin/test/test.c builtin/test/test_bcdef.c builtin/test/test_glprS.c \
 			  builtin/test/test_suwxz.c builtin/echo/echo.c substitution/parser_substitution.c \
-			  builtin/tabulation/tabulation.c
+			  builtin/tabulation/tabulation.c builtin/alias/alias.c histo/ctrlr_action.c
 #
 # Build
 #
 
 CC 		= gcc
 OBJS		= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
-CFLAGS		= -Wall -Werror -Wextra $(addprefix -I, $(INC_DIRS)) -g3
+CFLAGS		= -Wall -Wextra $(addprefix -I, $(INC_DIRS)) -g3
 LFLAGS		= -L$(LIB_DIR) -lft -ltermcap
 LIB		= libft.a
 COMP		= $(CC) $(CFLAGS) -o $@ -c $<
@@ -86,6 +86,7 @@ $(OBJS_DIR)/%.o: %.c
 	@mkdir -p $(OBJS_DIR)/builtin/echo
 	@mkdir -p $(OBJS_DIR)/builtin/tabulation	
 	@mkdir -p $(OBJS_DIR)/substitution
+	@mkdir -p $(OBJS_DIR)/builtin/alias
 	@$(COMP)
 
 clean:
