@@ -72,7 +72,7 @@ static char *search_history_ctrl_r(t_42sh *sh, char *to_find, int len_str_to_fin
 
 void    clean_line_lentoback(int len_to_left)
 {
-    while (len_to_left > 0)
+    while (len_to_left >= 0)
     {
         tputs(tgoto(tgetstr("le", NULL), 1, 0), 1, putchar_custom);
         len_to_left--;
@@ -80,7 +80,7 @@ void    clean_line_lentoback(int len_to_left)
     tputs(tgetstr("dl", NULL), 0, putchar_custom);
 }
 
-char    *ctrlr_action(t_42sh *sh)
+void     ctrlr_action(t_42sh *sh)
 {
     char    *arg;
     char    *dup;
@@ -91,7 +91,7 @@ char    *ctrlr_action(t_42sh *sh)
     dup = NULL;
     i = 0;
     if (!(arg = (char*)malloc(sizeof(char) * 0)))
-        return (NULL);
+        return ;
     if (mess_print == 0)
     {
         ft_putchar('\n');
@@ -116,10 +116,11 @@ char    *ctrlr_action(t_42sh *sh)
             arg = NULL;
             get_substitute(sh, i, dup, 0);
             if (mess_print == 0)
-                    clean_line_lentoback(i + 13); //len_mess_print
+                    clean_line_lentoback(i + 14); //len_mess_print
             else
-                    clean_line_lentoback(i + 22);
-            return (dup);
+                    clean_line_lentoback(i + 23);
+            free(dup);
+            return ;
         }
         if (dup)
             free(dup);
@@ -128,7 +129,7 @@ char    *ctrlr_action(t_42sh *sh)
             if (mess_print == 0)
                 clean_line_lentoback(i + 14); //len_mess_print
             else
-                clean_line_lentoback(i + 22);
+                clean_line_lentoback(i + 23);
             ft_puts_green("bck-i-search: ");
             ft_putstr(dup);
             mess_print = 0;
