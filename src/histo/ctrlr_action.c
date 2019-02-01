@@ -104,9 +104,19 @@ void     ctrlr_action(t_42sh *sh)
             if (!dup) //not find
             {
                 if (mess_print == 0)
-                    clean_line_lentoback(i + 13); //len_mess_print
+                {
+                    if (!dup)
+                        clean_line_lentoback(i + 14); //len_mess_print
+                    else
+                        clean_line_lentoback(ft_strlen(dup) + 14); //len_mess_print
+                }
                 else
-                    clean_line_lentoback(i + 22);
+                {
+                    if (!dup)
+                        clean_line_lentoback(i + 14); //len_mess_print
+                    else
+                        clean_line_lentoback(ft_strlen(dup) + 14); //len_mess_print
+                }
                 mess_print = 1;
                 ft_puts_green("failing bck-i-search: ");
                 free(arg);
@@ -114,11 +124,11 @@ void     ctrlr_action(t_42sh *sh)
             }
             free(arg);
             arg = NULL;
-            get_substitute(sh, i, dup, 0);
             if (mess_print == 0)
-                    clean_line_lentoback(i + 14); //len_mess_print
+                    clean_line_lentoback(ft_strlen(dup) + 14); //len_mess_print
             else
-                    clean_line_lentoback(i + 23);
+                    clean_line_lentoback(ft_strlen(dup) + 23);
+            get_substitute(sh, i, dup, 0);
             free(dup);
             return ;
         }
@@ -127,9 +137,19 @@ void     ctrlr_action(t_42sh *sh)
         if ((dup = search_history_ctrl_r(sh, arg, i)))
         {
             if (mess_print == 0)
-                clean_line_lentoback(i + 14); //len_mess_print
+            {
+                if (!dup)
+                    clean_line_lentoback(i + 14); //len_mess_print
+                else
+                    clean_line_lentoback(ft_strlen(dup) + 14); //len_mess_print
+            }
             else
-                clean_line_lentoback(i + 23);
+            {
+                if (!dup)
+                    clean_line_lentoback(i + 14); //len_mess_print
+                 else
+                    clean_line_lentoback(ft_strlen(dup) + 14); //len_mess_print
+            }
             ft_puts_green("bck-i-search: ");
             ft_putstr(dup);
             mess_print = 0;
