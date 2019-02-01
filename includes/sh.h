@@ -484,7 +484,7 @@ void				up_histo(t_42sh *sh);
 void				down_histo(t_42sh *sh);
 void				check_substitute(t_42sh *sh);
 void				modify_last_history(t_42sh *sh);
-void				ctrlr_action(t_42sh *sh);
+char				*ctrlr_action(t_42sh *sh);
 /***************************************************************************** \
 |                              BUILTIN                                        |
 \*****************************************************************************/

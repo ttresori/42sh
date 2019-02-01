@@ -105,5 +105,6 @@ void				ft_puts_red(char *str);
 void				ft_puts_green(char *str);
 void				ft_puts_yellow(char *str);
 void				ft_puts_cyan(char *str);
+void				*ft_realloc(void *ptr, size_t prev_size, size_t new_size);
 
 #endif

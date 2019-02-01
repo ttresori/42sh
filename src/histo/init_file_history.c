@@ -168,6 +168,7 @@ void	init_history(t_42sh *sh, char *path)
 	sh->history_mark->cur = NULL;
 	sh->history_mark->size = 0;
 	sh->history_mark->pos = 0;
+	sh->history_mark->error_code = 0;
 	if (access(path, F_OK) == 0)
 	{
 		fd = open(path, O_RDWR);

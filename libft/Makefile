@@ -28,7 +28,8 @@ SRC := ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c 
 	  ft_strncmp.c ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c ft_strrchr.c\
 	  ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c ft_toupper.c\
 	  ft_lstdel.c ft_lstdelone.c ft_itoa.c ft_lstadd.c ft_lstnew.c ft_lstiter.c\
-	  ft_lstmap.c get_next_line.c ft_strsplitset.c ft_free_split.c ft_putl_color.c ft_puts_color.c
+	  ft_lstmap.c get_next_line.c ft_strsplitset.c ft_free_split.c ft_putl_color.c \
+	  ft_puts_color.c ft_realloc.c
 
 OBJ := $(SRC:.c=.o)
 
