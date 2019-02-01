@@ -21,7 +21,6 @@ int			main(int argc, char **argv, char **env)
 		exit(0);
 	while (42)
 	{
-		sh.need_get_line = true;
 		process(&sh);
 		if (sh.lexer && argc == 2 && ft_strequ(argv[1], "--lexer"))
 			print_lexer(&sh);
