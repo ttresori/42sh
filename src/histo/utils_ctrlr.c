@@ -3,8 +3,10 @@
 void       get_new_line_ctrlr(t_42sh *sh, int i, char *dup)
 {
         get_substitute(sh, i, dup, 0);
-        sh->stdin->len_line += ft_strlen(dup);
-       // sh->stdin->line_pos += ft_strlen(dup);
+        sh->stdin->len_line = ft_strlen(dup);
+        sh->stdin->cursor_pos = sh->stdin->len_line + sh->prompt_len;
+        //ft_putnbr(sh->stdin->cursor_pos);
+        sh->stdin->line_pos += ft_strlen(dup);
 }
 
 

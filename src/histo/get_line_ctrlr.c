@@ -45,9 +45,14 @@ void            place_curs_ctrlr(t_42sh *sh, char *arg, char *dup, int len_arg)
     int nb_to_move;
 
     i = 0;
+    nb_to_move = 0;
+    if (!arg || !dup)
+            return ;
     if ((nb_to_move = get_first_c_of_occurence(arg, dup, len_arg)) > -1)
     {
         nb_to_move = ft_strlen(dup) - nb_to_move;
+        sh->stdin->cursor_pos = (sh->stdin->cursor_pos - nb_to_move);
+        sh->stdin->line_pos = sh->stdin->line_pos - nb_to_move;
         while(nb_to_move-- > 0)
             tputs(tgoto(tgetstr("le", NULL), 1, 0), 1, putchar_custom);
     }
