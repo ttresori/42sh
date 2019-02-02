@@ -484,7 +484,13 @@ void				up_histo(t_42sh *sh);
 void				down_histo(t_42sh *sh);
 void				check_substitute(t_42sh *sh);
 void				modify_last_history(t_42sh *sh);
+
 void				ctrlr_action(t_42sh *sh);
+void				double_free(char *s1, char *s2);
+int					is_in_str(char *to_find, char *search, int len_check);
+void				clean_line_lentoback(int len_to_left);
+void				get_new_line_ctrlr(t_42sh *sh, int i, char *dup);
+char				*get_line_ctrlr(char *arg, int pos);
 /***************************************************************************** \
 |                              BUILTIN                                        |
 \*****************************************************************************/
