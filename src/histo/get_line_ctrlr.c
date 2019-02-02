@@ -1,9 +1,67 @@
 #include "sh.h"
 
-static  char   *get_char(char *arg, int pos, long buf)
+static  int    check_after(char *arg, char *dup, int i, int i2, int len_arg)
 {
-     if (buf == '\n' || buf == CTRL_C)
+    int check;
+
+    check = 0;
+    while(check <= len_arg)
+    {
+        if (arg[i] == '\0' || dup[i] == '\0')
+            return (-1);
+        if (arg[i] != dup[i2])
+            return (-1);
+        check++;
+        i++;
+        i2++;
+    }
+    return (1);
+}
+
+static  int    get_first_c_of_occurence(char *arg, char *dup, int len_arg)
+{
+    int i;
+    int i2;
+
+    i = 0;
+    i2 = 0;
+    while (dup[i2])
+    {
+        if (arg[i] == dup[i2])
         {
+            ft_putstr("OKOK");
+            if (check_after(arg, dup, i, i2, len_arg) == 1)
+                return (i2);
+        }
+        i2++;
+    }
+    return (-1);
+}
+
+void            place_curs_ctrlr(t_42sh *sh, char *arg, char *dup, int len_arg)
+{
+    int i;
+    int nb_to_move;
+
+    i = 0;
+    if ((nb_to_move = get_first_c_of_occurence(arg, dup, len_arg)) > -1)
+        while(nb_to_move-- >= 0)
+            move_to_right(sh);
+}
+
+static  char   *get_char(t_42sh *sh, char *arg, int pos, long buf)
+{
+        if (buf == '\n' || buf == CTRL_D)
+        {
+            sh->history_mark->error_code = 0;
+            sh->history_mark->ctrlr_arg = ft_strdup(arg);
+            free(arg);
+            return (NULL);
+        }
+        if (buf == CTRL_C)
+        {
+            sh->history_mark->error_code = 1;
+            sh->history_mark->ctrlr_arg = ft_strdup(arg);
             free(arg);
             return (NULL);
         }
@@ -19,16 +77,17 @@ static  char   *get_char(char *arg, int pos, long buf)
             arg[pos] = buf;
             arg[pos + 1] = '\0';
         }
+        sh->history_mark->error_code = 0;
         return (arg);
 }
 
-char            *get_line_ctrlr(char *arg, int pos)
+char            *get_line_ctrlr(t_42sh *sh, char *arg, int pos)
 {
 	long	buf;
 	int		i;
 
 	buf = 0;
     if ((i = read(0, &buf, 6)) > 0)
-        return(get_char(arg, pos, buf));
+        return(get_char(sh, arg, pos, buf));
     return (NULL);
 }

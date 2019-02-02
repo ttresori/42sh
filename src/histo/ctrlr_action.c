@@ -10,8 +10,9 @@ static char *search_history_ctrl_r(t_42sh *sh, char *to_find, int len_str_to_fin
     tmp = NULL;
     tmp = sh->history_mark->begin;
     size_list = sh->history_mark->size;
-    while (size_list > 0)
+    while (size_list > 1)
     {
+        ft_putl_red(tmp->str);
         if (is_in_str(to_find, tmp->str, len_str_to_find) == 0)
             return ((sub = ft_strdup(tmp->str)));
         tmp = tmp->next;
@@ -48,14 +49,18 @@ void       ctrlr_read(t_42sh *sh, char *dup, char *arg, int i, int is_find)
 {
     while (42)
     {
-        if (!(arg = get_line_ctrlr(arg, i)))
+        if (!(arg = get_line_ctrlr(sh, arg, i)))
         {
-            is_find == 1 \
+            is_find == 0 \
             ? clean_line_lentoback(i + 24) : clean_line_lentoback(i + 16 + ft_strlen(dup));
             prompt(sh->env, sh);
-            if (dup)
-                get_new_line_ctrlr(sh, i, dup);
-            double_free(arg, dup);
+            if (dup && sh->history_mark->error_code == 0)
+            {
+                get_new_line_ctrlr(sh, i, dup);    
+                place_curs_ctrlr(sh, sh->history_mark->ctrlr_arg , dup, i);
+                free(sh->history_mark->ctrlr_arg);
+            }
+            free(dup);
             return ;
         }
         if (dup)
@@ -66,8 +71,10 @@ void       ctrlr_read(t_42sh *sh, char *dup, char *arg, int i, int is_find)
             print_prompt_search(i ,0, arg, dup);
         }
         else
-            is_find == 0 \
-            ? print_prompt_search(i ,0, arg, NULL): print_prompt_search(i, 1, arg, NULL);
+        {
+            is_find = 0;
+            print_prompt_search(i , 1, arg, NULL);
+        }
         i++;
     }
 }
@@ -83,10 +90,11 @@ void       ctrlr_action(t_42sh *sh) //add nb_line
     is_find = 0;
     i = 0;
     arg = NULL;
+    sh->history_mark->error_code = 0;
+    sh->history_mark->ctrlr_arg = NULL;
     if (!(arg = (char*)malloc(sizeof(char) * 0)))
         return ;
     clean_line_lentoback(sh->prompt_len);
-    is_find == 0 \
-    ? print_prompt_search(0 ,0, NULL, NULL): print_prompt_search(0, 1, NULL, NULL);
+    print_prompt_search(0 ,0, NULL, NULL);
     ctrlr_read(sh, dup, arg, i, is_find);
 }

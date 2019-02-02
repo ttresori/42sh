@@ -1,13 +1,5 @@
 #include "sh.h"
 
-void       double_free(char *s1, char *s2)
-{
-    if (s1)
-        ft_strdel(&s1);
-    if (s2)
-        ft_strdel(&s2);
-}
-
 void       get_new_line_ctrlr(t_42sh *sh, int i, char *dup)
 {
         get_substitute(sh, i, dup, 0);
