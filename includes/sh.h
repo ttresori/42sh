@@ -178,6 +178,7 @@ typedef struct		s_history_mark
 	char 			*last_str;
 	int				error_code;
 	char			*ctrlr_arg;
+	int 			pos_arg;
 	int				pos;
 	int				size;
 }					t_history_mark;
@@ -488,11 +489,11 @@ void				modify_last_history(t_42sh *sh);
 
 void				ctrlr_action(t_42sh *sh);
 int					is_in_str(char *to_find, char *search, int len_check);
-void				clean_line_lentoback(int len_to_left);
-void				get_new_line_ctrlr(t_42sh *sh, int i, char *dup);
-char				*get_line_ctrlr(t_42sh *sh, char *arg, int pos);
-void				place_curs_ctrlr(t_42sh *sh, char *arg, char *dup, int len_arg);
-
+void				clean_line_lentoback();
+void				get_new_line_ctrlr(t_42sh *sh, char *dup);
+char				*get_line_ctrlr(t_42sh *sh, char *arg);
+void				place_curs_ctrlr(t_42sh *sh, char *arg, char *dup);
+void				print_prompt_search(t_42sh *sh, int choice, char *to_print_in, char *to_print_out, int len_del);
 /***************************************************************************** \
 |                              BUILTIN                                        |
 \*****************************************************************************/

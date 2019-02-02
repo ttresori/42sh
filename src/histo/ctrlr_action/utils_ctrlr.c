@@ -1,12 +1,8 @@
 #include "sh.h"
 
-void       get_new_line_ctrlr(t_42sh *sh, int i, char *dup)
+void       get_new_line_ctrlr(t_42sh *sh, char *dup)
 {
-        get_substitute(sh, i, dup, 0);
-        sh->stdin->len_line = ft_strlen(dup);
-        sh->stdin->cursor_pos = sh->stdin->len_line + sh->prompt_len;
-        //ft_putnbr(sh->stdin->cursor_pos);
-        sh->stdin->line_pos += ft_strlen(dup);
+        get_substitute(sh, sh->history_mark->pos_arg, dup, 0);
 }
 
 
@@ -21,7 +17,7 @@ void    clean_line_lentoback(int len_to_left)
     tputs(tgetstr("dl", NULL), 0, putchar_custom);
 }
 
-static int check_following(char *to_find, char *search, int len_check, int start_search)
+static int check_following(char *to_find, char *search, int start_search, int len_check)
 {
     int i;
 
@@ -44,7 +40,7 @@ int         is_in_str(char *to_find, char *search, int len_check)
     while (search[i])
     {
         if (search[i] == to_find[0])
-            if (check_following(to_find, search, len_check, i) == 1)
+            if (check_following(to_find, search, i, len_check) == 1)
                 return (0);
        i++;
     }

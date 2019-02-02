@@ -41,8 +41,10 @@ SRCS		= core/main.c edit_line/list.c core/process.c utils/getenv.c \
 			  edit_line/move_histo.c histo/substitute_history.c \
 			  builtin/test/test.c builtin/test/test_bcdef.c builtin/test/test_glprS.c \
 			  builtin/test/test_suwxz.c builtin/echo/echo.c substitution/parser_substitution.c \
-			  builtin/tabulation/tabulation.c builtin/alias/alias.c histo/ctrlr_action.c \
-			  histo/utils_ctrlr.c histo/get_line_ctrlr.c
+			  builtin/tabulation/tabulation.c builtin/alias/alias.c \
+			  histo/ctrlr_action/ctrlr_action.c histo/ctrlr_action/utils_ctrlr.c \
+			  histo/ctrlr_action/get_line_ctrlr.c histo/ctrlr_action/place_curs_ctrlr.c \
+			  histo/ctrlr_action/prompt_ctrlr.c
 #
 # Build
 #
@@ -78,6 +80,7 @@ $(OBJS_DIR)/%.o: %.c
 	@mkdir -p $(OBJS_DIR)/core
 	@mkdir -p $(OBJS_DIR)/edit_line
 	@mkdir -p $(OBJS_DIR)/histo
+	@mkdir -p $(OBJS_DIR)/histo/ctrlr_action
 	@mkdir -p $(OBJS_DIR)/lexer
 	@mkdir -p $(OBJS_DIR)/hashtable
 	@mkdir -p $(OBJS_DIR)/utils
