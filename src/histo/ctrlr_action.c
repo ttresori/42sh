@@ -10,9 +10,8 @@ static char *search_history_ctrl_r(t_42sh *sh, char *to_find, int len_str_to_fin
     tmp = NULL;
     tmp = sh->history_mark->begin;
     size_list = sh->history_mark->size;
-    while (size_list > 1)
+    while (size_list > 0)
     {
-        ft_putl_red(tmp->str);
         if (is_in_str(to_find, tmp->str, len_str_to_find) == 0)
             return ((sub = ft_strdup(tmp->str)));
         tmp = tmp->next;

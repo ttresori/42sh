@@ -5,12 +5,14 @@ static  int    check_after(char *arg, char *dup, int i, int i2, int len_arg)
     int check;
 
     check = 0;
-    while(check <= len_arg)
+    while(check < len_arg)
     {
-        if (arg[i] == '\0' || dup[i] == '\0')
+        if (arg[check] == '\0' || dup[i2] == '\0')
             return (-1);
-        if (arg[i] != dup[i2])
+        if (arg[check] != dup[i2])
+        {
             return (-1);
+        }
         check++;
         i++;
         i2++;
@@ -29,7 +31,6 @@ static  int    get_first_c_of_occurence(char *arg, char *dup, int len_arg)
     {
         if (arg[i] == dup[i2])
         {
-            ft_putstr("OKOK");
             if (check_after(arg, dup, i, i2, len_arg) == 1)
                 return (i2);
         }
@@ -45,8 +46,11 @@ void            place_curs_ctrlr(t_42sh *sh, char *arg, char *dup, int len_arg)
 
     i = 0;
     if ((nb_to_move = get_first_c_of_occurence(arg, dup, len_arg)) > -1)
-        while(nb_to_move-- >= 0)
-            move_to_right(sh);
+    {
+        nb_to_move = ft_strlen(dup) - nb_to_move;
+        while(nb_to_move-- > 0)
+            tputs(tgoto(tgetstr("le", NULL), 1, 0), 1, putchar_custom);
+    }
 }
 
 static  char   *get_char(t_42sh *sh, char *arg, int pos, long buf)
