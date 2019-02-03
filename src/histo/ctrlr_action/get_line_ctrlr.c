@@ -19,46 +19,6 @@ static  char   *check_exit(t_42sh *sh, char *arg, long buf)
         return (arg);
 }
 
-static  char   *del_one_c(t_42sh *sh, char *arg)
-{
-    char    *new;
-    int     i;
-
-    new = NULL;
-    i = 0;
-    if (!arg || sh->history_mark->pos_arg == 0)
-    {
-        if (arg)
-            free(arg);
-        return (NULL);
-    }
-    i = sh->history_mark->pos_arg - 1;
-    if (i == -1)
-    {
-        ft_putchar('\n');
-        if (!(new = (char*)malloc(sizeof(char) * 0)))
-        {
-         free(arg);
-         return (NULL);
-        }
-    new[0] ='\0';
-    free(arg);
-    return (new);
-    }
-    if (!(new = (char*)malloc(sizeof(char) * i)))
-    {
-        free(arg);
-        return (NULL);
-    }
-    while (i  < sh->history_mark->pos_arg)
-    {
-        new[i] = arg[i];
-        i++;
-    }
-    free(arg);
-    return (new);
-}
-
 static  char   *get_char(t_42sh *sh, char *arg, long buf)
 {
         if (!(check_exit(sh, arg, buf)))
@@ -74,7 +34,6 @@ static  char   *get_char(t_42sh *sh, char *arg, long buf)
                 sh->history_mark->pos_arg--;
             else
             {
-           //arg = del_one_c(sh, arg);
                 arg = ft_realloc(arg, sh->history_mark->pos_arg, sh->history_mark->pos_arg - 1);
                 arg[sh->history_mark->pos_arg - 1] = '\0';
                 sh->history_mark->pos_arg--;
