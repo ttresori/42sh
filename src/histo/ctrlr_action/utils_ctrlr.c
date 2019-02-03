@@ -20,7 +20,7 @@ void    clean_line_lentoback(int len_to_left)
     tputs(tgetstr("dl", NULL), 0, putchar_custom);
 }
 
-static int check_following(char *to_find, char *search, int start_search, int len_check)
+int check_following(char *to_find, char *search, int start_search, int len_check)
 {
     int i;
 

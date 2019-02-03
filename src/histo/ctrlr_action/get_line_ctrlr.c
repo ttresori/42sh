@@ -19,10 +19,15 @@ static  char   *check_exit(t_42sh *sh, char *arg, long buf)
         return (arg);
 }
 
-static  char   *get_char(t_42sh *sh, char *arg, long buf)
+static  char   *get_char(t_42sh *sh, char *arg, long buf, char *dup)
 {
         if (!(check_exit(sh, arg, buf)))
             return (NULL);
+        if (buf == CTRL_R && sh->history_mark->is_find == 1)
+        {
+            back_in_history(sh, dup, arg);
+            return (arg);
+        }
         if (buf == DEL)
         {
                 if (sh->history_mark->pos_arg == 0)
@@ -64,7 +69,7 @@ static  char   *get_char(t_42sh *sh, char *arg, long buf)
         return (arg);
 }
 
-char            *get_line_ctrlr(t_42sh *sh, char *arg)
+char            *get_line_ctrlr(t_42sh *sh, char *arg, char *dup)
 {
 	long	buf;
 	int		i;
@@ -72,7 +77,7 @@ char            *get_line_ctrlr(t_42sh *sh, char *arg)
 	buf = 0;
     if ((i = read(0, &buf, 6)) > 0)
     {
-        arg = get_char(sh, arg, buf);
+        arg = get_char(sh, arg, buf, dup);
         return(arg);
     }
     return (NULL);

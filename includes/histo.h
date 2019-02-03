@@ -20,6 +20,7 @@ typedef struct		s_history_mark
 	char			*ctrlr_arg;
 	int				is_find;
 	int 			pos_arg;
+	int				move_curs;
 	int				pos;
 	int				size;
 }					t_history_mark;
