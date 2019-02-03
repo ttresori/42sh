@@ -13,7 +13,7 @@ static void    choice_off(t_42sh *sh, char *to_print_in, char *to_print_out)
     ft_puts_green("bck-i-search`");
     if (to_print_in)
      {
-            len_in = ft_strlen(to_print_in);
+            len_in = sh->history_mark->pos_arg;
             ft_puts_yellow(to_print_in);
             sh->stdin->cursor_pos += len_in;
             sh->stdin->line_pos += len_in;

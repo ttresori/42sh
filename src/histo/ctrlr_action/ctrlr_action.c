@@ -29,11 +29,12 @@ static void to_exit_ctrlr(t_42sh *sh, char *dup, char *arg)
             prompt(sh->env, sh);
             if (dup && sh->history_mark->error_code == 0)
             {
-                get_new_line_ctrlr(sh, dup);    
+                get_new_line_ctrlr(sh, dup);
                 place_curs_ctrlr(sh, sh->history_mark->ctrlr_arg, dup);
                 free(sh->history_mark->ctrlr_arg);
             }
             free(arg);
+           // place_curs_ctrlr_exit(sh, NULL, dup);
             free(dup);
             return ;
 }

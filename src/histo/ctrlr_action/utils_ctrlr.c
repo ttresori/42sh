@@ -2,7 +2,9 @@
 
 void       get_new_line_ctrlr(t_42sh *sh, char *dup)
 {
-        get_substitute(sh, sh->history_mark->pos_arg, dup, 0);
+    free(sh->stdin->input);
+    sh->stdin->input = ft_strdup(dup);
+    ft_puts_red(sh->stdin->input);
 }
 
 
