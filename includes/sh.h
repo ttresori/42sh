@@ -473,6 +473,7 @@ void				get_new_line_ctrlr(t_42sh *sh, char *dup);
 char				*get_line_ctrlr(t_42sh *sh, char *arg);
 void				place_curs_ctrlr(t_42sh *sh, char *arg, char *dup);
 void				print_prompt_search(t_42sh *sh, int choice, char *to_print_in, char *to_print_out, int len_del);
+void				place_curs_ctrlr_exit(t_42sh *sh, char *arg, char *dup);
 
 /***************************************************************************** \
 |                              BUILTIN                                        |

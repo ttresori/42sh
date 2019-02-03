@@ -34,7 +34,6 @@ static void to_exit_ctrlr(t_42sh *sh, char *dup, char *arg)
                 free(sh->history_mark->ctrlr_arg);
             }
             free(arg);
-            place_curs_ctrlr(sh, NULL, dup);
             free(dup);
             return ;
 }
