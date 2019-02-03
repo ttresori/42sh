@@ -27,9 +27,10 @@ static int check_following(char *to_find, char *search, int start_search, int le
     i = 0;
     while(len_check > 0)
     {
-        if (to_find[i] != search[start_search++])
+        if (to_find[i] != search[start_search])
             return (-1);
         len_check--;
+        start_search++;
         i++;
     }
     return (1);
@@ -38,14 +39,18 @@ static int check_following(char *to_find, char *search, int start_search, int le
 int         is_in_str(char *to_find, char *search, int len_check)
 {
     int i;
+    int real_return;
 
     i = 0;
+    real_return = -1;
     while (search[i])
     {
         if (search[i] == to_find[0])
+        {
             if (check_following(to_find, search, i, len_check) == 1)
-                return (0);
+                real_return = 0;
+        }
        i++;
     }
-    return (-1);
+    return (real_return);
 }

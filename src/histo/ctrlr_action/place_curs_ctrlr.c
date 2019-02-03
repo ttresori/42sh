@@ -20,23 +20,42 @@ static  int    check_after(char *arg, char *dup, int i, int i2, int len_arg)
     return (1);
 }
 
+/*static  int    get_last_c_of_occurence(char *arg, char *dup, int len_arg)
+{
+    int i;
+    int len_search;
+
+    i = 0;
+    len_search = ft_strlen(dup);
+    while (len_search > 0)
+    {
+        if (dup[len_search] == arg[0])
+            if (check_after(arg, dup, len_search, len_arg) == 1)
+                return (len_search);
+       len_search--;
+    }
+    return (-1);
+}*/
+
 static  int    get_first_c_of_occurence(char *arg, char *dup, int len_arg)
 {
     int i;
     int i2;
+    int real_return;
 
     i = 0;
     i2 = 0;
+    real_return = -1;
     while (dup[i2])
     {
         if (arg[i] == dup[i2])
         {
             if (check_after(arg, dup, i, i2, len_arg) == 1)
-                return (i2);
+                real_return = i2;
         }
         i2++;
     }
-    return (-1);
+    return (real_return);
 }
 
 void            place_curs_ctrlr(t_42sh *sh, char *arg, char *dup)
