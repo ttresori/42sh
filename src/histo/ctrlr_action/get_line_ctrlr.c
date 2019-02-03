@@ -89,15 +89,16 @@ static  char   *get_char(t_42sh *sh, char *arg, long buf)
             else
                 arg[0] = '\0';
             arg[1] = '\0';
+            sh->history_mark->is_find = 0;
         }
         else
         {
-            if (sh->history_mark->is_find  == 1)
+            if (sh->history_mark->is_find == 1)
             {
-            arg = ft_realloc(arg, sh->history_mark->pos_arg + 1, sh->history_mark->pos_arg + 2);
-            arg[sh->history_mark->pos_arg ] = buf;
-            arg[sh->history_mark->pos_arg  + 1] = '\0';
-            sh->history_mark->is_find = 0;
+                arg = ft_realloc(arg, sh->history_mark->pos_arg + 1, sh->history_mark->pos_arg + 2);
+                arg[sh->history_mark->pos_arg ] = buf;
+                arg[sh->history_mark->pos_arg  + 1] = '\0';
+                sh->history_mark->is_find = 0;
             }
         }
         sh->history_mark->error_code = 0;

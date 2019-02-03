@@ -60,7 +60,7 @@ void            place_curs_ctrlr(t_42sh *sh, char *arg, char *dup)
     {
         nb_to_move = len_dup - nb_to_move;
         sh->stdin->len_line = len_dup;
-        sh->stdin->cursor_pos = (sh->stdin->len_line  - nb_to_move);
+        sh->stdin->cursor_pos = (sh->stdin->len_line - nb_to_move);
         sh->stdin->line_pos = len_dup - nb_to_move;
         while(nb_to_move-- > 0)
             tputs(tgoto(tgetstr("le", NULL), 1, 0), 1, putchar_custom);
