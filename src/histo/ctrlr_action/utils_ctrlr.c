@@ -2,8 +2,9 @@
 
 void       get_new_line_ctrlr(t_42sh *sh, char *dup)
 {
-    free(sh->stdin->input);
-    sh->stdin->input = ft_strdup(dup);
+    //free(sh->stdin->input);
+    ft_strcpy(sh->stdin->input, dup);
+    sh->stdin->cursor_pos = sh->prompt_len + sh->stdin->line_pos;
     ft_puts_red(sh->stdin->input);
 }
 

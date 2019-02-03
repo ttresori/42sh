@@ -59,7 +59,7 @@ void            place_curs_ctrlr(t_42sh *sh, char *arg, char *dup)
     if ((nb_to_move = get_first_c_of_occurence(arg, dup, sh->history_mark->pos_arg)) > -1)
     {
         nb_to_move = len_dup - nb_to_move;
-        (sh->stdin->len_line = len_dup);
+        sh->stdin->len_line = len_dup;
         sh->stdin->cursor_pos = sh->stdin->len_line - nb_to_move;
         sh->stdin->line_pos = len_dup - nb_to_move;
         while(nb_to_move-- > 0)
