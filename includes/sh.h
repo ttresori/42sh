@@ -178,6 +178,7 @@ typedef struct		s_history_mark
 	char 			*last_str;
 	int				error_code;
 	char			*ctrlr_arg;
+	int				is_find;
 	int 			pos_arg;
 	int				pos;
 	int				size;
