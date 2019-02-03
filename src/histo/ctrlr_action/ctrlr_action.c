@@ -17,6 +17,7 @@ static char *search_history_ctrl_r(t_42sh *sh, char *to_find)
         tmp = tmp->next;
         size_list--;
     }
+    sh->history_mark->is_find = 0;
     return (NULL);
 }
 
@@ -34,6 +35,7 @@ static void to_exit_ctrlr(t_42sh *sh, char *dup, char *arg)
             }
             free(arg);
             free(dup);
+            place_curs_ctrlr(sh, NULL, NULL);
             return ;
 }
 
@@ -58,12 +60,11 @@ void       ctrlr_read(t_42sh *sh, char *dup, char *arg)
         }
         else
         {
-            
             print_prompt_search(sh, 1, arg, NULL, sh->history_mark->pos_arg);
             sh->history_mark->is_find = 0;
         }
-        if (save == sh->history_mark->pos_arg && sh->history_mark->is_find == 1)
-            sh->history_mark->pos_arg++;
+       /* if (save == sh->history_mark->pos_arg && sh->history_mark->is_find == 1)
+            sh->history_mark->pos_arg++;*/
         place_curs_ctrlr(sh, arg, dup);
     }
 }

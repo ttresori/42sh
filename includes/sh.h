@@ -24,6 +24,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include "libft.h"
+# include "histo.h"
 
 # define OPTION_TEST 15
 # define NB_INPUT_SELECT 8
@@ -162,27 +163,6 @@ typedef struct		s_lexer
 	int				quote;
 	struct s_lexer	*next;
 }					t_lexer;
-
-typedef struct		s_history
-{
-	char			*str;
-	struct s_history *next;
-	struct s_history *prev;
-}					t_history;
-
-typedef struct		s_history_mark
-{
-	t_history		*begin;
-	t_history		*last;
-	t_history		*cur;
-	char 			*last_str;
-	int				error_code;
-	char			*ctrlr_arg;
-	int				is_find;
-	int 			pos_arg;
-	int				pos;
-	int				size;
-}					t_history_mark;
 
 typedef struct		s_alias
 {
@@ -455,6 +435,42 @@ char				*ft_joinpath(const char *path, const char *name);
 void				print_env_array(char **env);
 
 /***************************************************************************** \
+|                              BUILTIN                                        |
+\*****************************************************************************/
+
+/*
+**	test
+*/
+
+void				builtin_test(t_42sh *sh);
+void				test_b(t_42sh *sh, struct stat info);
+void				test_c(t_42sh *sh, struct stat info);
+void				test_d(t_42sh *sh, struct stat info);
+void				test_e(t_42sh *sh, struct stat info);
+void				test_f(t_42sh *sh, struct stat info);
+void				test_g(t_42sh *sh, struct stat info);
+void				test_L(t_42sh *sh, struct stat info);
+void				test_p(t_42sh *sh, struct stat info);
+void				test_r(t_42sh *sh, struct stat info);
+void				test_S(t_42sh *sh, struct stat info);
+void				test_s(t_42sh *sh, struct stat info);
+void				test_u(t_42sh *sh, struct stat info);
+void				test_w(t_42sh *sh, struct stat info);
+void				test_x(t_42sh *sh, struct stat info);
+void				test_z(t_42sh *sh, struct stat info);
+
+/*
+**	echo
+*/
+
+void				builtin_echo(t_42sh *sh);
+
+/*
+** alias
+*/
+void    builtin_alias(t_42sh *sh);
+
+/***************************************************************************** \
 |                              HISTORY                                        |
 \*****************************************************************************/
 
@@ -495,41 +511,6 @@ void				get_new_line_ctrlr(t_42sh *sh, char *dup);
 char				*get_line_ctrlr(t_42sh *sh, char *arg);
 void				place_curs_ctrlr(t_42sh *sh, char *arg, char *dup);
 void				print_prompt_search(t_42sh *sh, int choice, char *to_print_in, char *to_print_out, int len_del);
-/***************************************************************************** \
-|                              BUILTIN                                        |
-\*****************************************************************************/
-
-/*
-**	test
-*/
-
-void				builtin_test(t_42sh *sh);
-void				test_b(t_42sh *sh, struct stat info);
-void				test_c(t_42sh *sh, struct stat info);
-void				test_d(t_42sh *sh, struct stat info);
-void				test_e(t_42sh *sh, struct stat info);
-void				test_f(t_42sh *sh, struct stat info);
-void				test_g(t_42sh *sh, struct stat info);
-void				test_L(t_42sh *sh, struct stat info);
-void				test_p(t_42sh *sh, struct stat info);
-void				test_r(t_42sh *sh, struct stat info);
-void				test_S(t_42sh *sh, struct stat info);
-void				test_s(t_42sh *sh, struct stat info);
-void				test_u(t_42sh *sh, struct stat info);
-void				test_w(t_42sh *sh, struct stat info);
-void				test_x(t_42sh *sh, struct stat info);
-void				test_z(t_42sh *sh, struct stat info);
-
-/*
-**	echo
-*/
-
-void				builtin_echo(t_42sh *sh);
-
-/*
-** alias
-*/
-void    builtin_alias(t_42sh *sh);
 
 /***************************************************************************** \
 |                          SUBSTITUTION                                        |

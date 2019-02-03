@@ -22,7 +22,7 @@ static int check_following(char *to_find, char *search, int start_search, int le
     int i;
 
     i = 0;
-    while(len_check >= 0)
+    while(len_check > 0)
     {
         if (to_find[i] != search[start_search++])
             return (-1);

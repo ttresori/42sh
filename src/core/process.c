@@ -97,7 +97,7 @@ void			process(t_42sh *sh)
 	prompt(sh->env, sh);
 
 	if (get_line(sh) != 1)
-		return ;
+			return ;
 	if (sh->stdin->len_line == 0 || !sh->stdin->input)
 		return ;
 	ft_lexer(sh);

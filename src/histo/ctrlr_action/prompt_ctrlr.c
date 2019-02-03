@@ -38,9 +38,6 @@ void    print_prompt_search(t_42sh *sh, int choice, char *to_print_in, char *to_
     len_in = 0;
     len_out = 0;
     len_del = sh->stdin->len_line + sh->prompt_len;
-    ft_putchar('\n');
-    ft_putnbr(len_del);
-    ft_putchar('\n');
     clean_line_lentoback(len_del);
     if (choice == 0)
     {

@@ -25,20 +25,15 @@ static  char   *get_char(t_42sh *sh, char *arg, long buf)
             return (NULL);
         if (buf == DEL)
         {
-            if (sh->history_mark->pos_arg == 0)
-            {
-                sh->history_mark->is_find = 0;
-                return (arg);
-            }
-            if (sh->history_mark->pos_arg == 1)
-                sh->history_mark->pos_arg--;
-            else
-            {
-                arg = ft_realloc(arg, sh->history_mark->pos_arg, sh->history_mark->pos_arg - 1);
+                if (sh->history_mark->pos_arg == 0)
+                {
+                    arg[0] = '\0';
+                    return (arg);
+                }
+                arg = ft_realloc(arg, sh->history_mark->pos_arg, sh->history_mark->pos_arg);
                 arg[sh->history_mark->pos_arg - 1] = '\0';
                 sh->history_mark->pos_arg--;
                 return (arg);
-            }
         }
         if (sh->history_mark->pos_arg == 0)
         {
@@ -46,18 +41,23 @@ static  char   *get_char(t_42sh *sh, char *arg, long buf)
             if (buf != DEL)
                 arg[0] = buf;
             else
+            {
+                sh->history_mark->is_find = 0;
                 arg[0] = '\0';
+            }
             arg[1] = '\0';
-            sh->history_mark->is_find = 0;
+            sh->history_mark->pos_arg = 1;
         }
         else
         {
             if (sh->history_mark->is_find == 1)
             {
-                arg = ft_realloc(arg, sh->history_mark->pos_arg + 1, sh->history_mark->pos_arg + 2);
-                arg[sh->history_mark->pos_arg ] = buf;
+                arg = ft_realloc(arg, sh->history_mark->pos_arg, sh->history_mark->pos_arg + 1);
+                arg[sh->history_mark->pos_arg] = buf;
                 arg[sh->history_mark->pos_arg  + 1] = '\0';
-                sh->history_mark->is_find = 0;
+                sh->history_mark->pos_arg++;
+                //arg[sh->history_mark->pos_arg  + 2] = '\0';
+                //sh->history_mark->is_find = 0;
             }
         }
         sh->history_mark->error_code = 0;
