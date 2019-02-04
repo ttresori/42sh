@@ -25,7 +25,7 @@ static void to_exit_ctrlr(t_42sh *sh, char *dup, char *arg)
 {
             sh->history_mark->is_find  == 0 \
             ? clean_line_lentoback(sh->history_mark->pos_arg  + 25) \
-            : clean_line_lentoback(sh->history_mark->pos_arg + 17 + ft_strlen(dup));
+            : clean_line_lentoback(sh->history_mark->pos_arg + 16 + ft_strlen(dup));
             prompt(sh->env, sh);
             if (dup && sh->history_mark->error_code == 0)
             {
@@ -68,6 +68,8 @@ void       ctrlr_read(t_42sh *sh, char *dup, char *arg)
             sh->history_mark->pos_arg++;*/
         if (sh->history_mark->move_curs == 0)
             place_curs_ctrlr(sh, arg, dup);
+        else
+            sh->history_mark->move_curs = 0;    
     }
 }
 
@@ -89,6 +91,6 @@ void       ctrlr_action(t_42sh *sh) //add nb_line
         return ;
     clean_line_lentoback(sh->prompt_len);
     print_prompt_search(sh, 0, NULL, NULL, sh->history_mark->pos_arg);
-    sh->stdin->cursor_pos = 17;
+    sh->stdin->cursor_pos = 16;
     ctrlr_read(sh, dup, arg);
 }

@@ -1,6 +1,6 @@
 #include "sh.h"
 
-static  int    check_after(char *arg, char *dup, int i, int i2, int len_arg)
+int    check_after(char *arg, char *dup, int i, int i2, int len_arg)
 {
     int check;
 
@@ -20,7 +20,7 @@ static  int    check_after(char *arg, char *dup, int i, int i2, int len_arg)
     return (1);
 }
 
-static  int    get_first_c_of_occurence(char *arg, char *dup, int len_arg)
+static  int    get_last_c_of_occurence(char *arg, char *dup, int len_arg)
 {
     int i;
     int i2;
@@ -34,7 +34,7 @@ static  int    get_first_c_of_occurence(char *arg, char *dup, int len_arg)
         if (arg[i] == dup[i2])
         {
             if (check_after(arg, dup, i, i2, len_arg) == 1)
-                real_return = i2;
+                real_return = i2 + 1;
         }
         i2++;
     }
@@ -58,12 +58,12 @@ void            place_curs_ctrlr(t_42sh *sh, char *arg, char *dup)
         return ;
     }
     len_dup = ft_strlen(dup);
-    if ((nb_to_move = get_first_c_of_occurence(arg, dup, sh->history_mark->pos_arg)) > -1)
+    if ((nb_to_move = get_last_c_of_occurence(arg, dup, sh->history_mark->pos_arg)) > -1)
     {
         nb_to_move = len_dup - nb_to_move;
         sh->stdin->len_line = len_dup;
         sh->stdin->line_pos = len_dup - nb_to_move;
-        sh->stdin->cursor_pos = sh->stdin->len_line - nb_to_move;
+        sh->stdin->cursor_pos = sh->prompt_len + sh->stdin->len_line - nb_to_move;
         while(nb_to_move-- > 0)
             tputs(tgoto(tgetstr("le", NULL), 1, 0), 1, putchar_custom);
     }

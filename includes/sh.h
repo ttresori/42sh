@@ -476,6 +476,7 @@ void				print_prompt_search(t_42sh *sh, int choice, char *to_print_in, char *to_
 void				place_curs_ctrlr_exit(t_42sh *sh, char *arg, char *dup);
 void 				back_in_history(t_42sh *sh, char *dup, char *arg);
 int					check_following(char *to_find, char *search, int start_search, int len_check);
+int 				check_after(char *arg, char *dup, int i, int i2, int len_arg);
 
 /***************************************************************************** \
 |                              BUILTIN                                        |

@@ -7,9 +7,9 @@ static void    choice_off(t_42sh *sh, char *to_print_in, char *to_print_out)
 
     len_in = 0;
     len_out = 0;
-    sh->stdin->cursor_pos = 17;
-    sh->stdin->line_pos = 17;
-    sh->prompt_len = 17;
+    sh->stdin->cursor_pos = 16;
+    sh->stdin->line_pos = 16;
+    sh->prompt_len = 16;
     ft_puts_green("bck-i-search`");
     if (to_print_in)
      {
