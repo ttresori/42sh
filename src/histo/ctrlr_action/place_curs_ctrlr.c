@@ -32,10 +32,8 @@ static  int    get_last_c_of_occurence(char *arg, char *dup, int len_arg)
     while (dup[i2])
     {
         if (arg[i] == dup[i2])
-        {
             if (check_after(arg, dup, i, i2, len_arg) == 1)
-                real_return = i2 + 1;
-        }
+                real_return = i2;
         i2++;
     }
     return (real_return);

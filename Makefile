@@ -94,6 +94,7 @@ $(OBJS_DIR)/%.o: %.c
 	@mkdir -p $(OBJS_DIR)/builtin/tabulation	
 	@mkdir -p $(OBJS_DIR)/substitution
 	@mkdir -p $(OBJS_DIR)/builtin/alias
+	@mkdir -p $(OBJS_DIR)/builtin/alias
 	@$(COMP)
 
 clean:

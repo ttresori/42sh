@@ -2,7 +2,8 @@
 
 static  char   *check_exit(t_42sh *sh, char *arg, long buf)
 {
-        if (buf == '\n' || buf == CTRL_D)
+        if (buf == '\n' || buf == CTRL_D || buf == UP_KEY || buf == DOWN_KEY
+        || buf == LEFT_KEY || buf == RIGHT_KEY)
         {
             sh->history_mark->error_code = 0;
             sh->history_mark->ctrlr_arg = ft_strdup(arg);

@@ -66,10 +66,10 @@ void       ctrlr_read(t_42sh *sh, char *dup, char *arg)
         }
        /* if (save == sh->history_mark->pos_arg && sh->history_mark->is_find == 1)
             sh->history_mark->pos_arg++;*/
-        if (sh->history_mark->move_curs == 0)
+       // if (sh->history_mark->move_curs == 0)
             place_curs_ctrlr(sh, arg, dup);
-        else
-            sh->history_mark->move_curs = 0;    
+       /* else
+            sh->history_mark->move_curs = 0;    */
     }
 }
 
