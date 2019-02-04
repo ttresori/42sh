@@ -25,4 +25,8 @@ typedef struct		s_history_mark
 	int				size;
 }					t_history_mark;
 
+int					check_following(char *to_find, char *search, int start_search, int len_check);
+int 				check_after(char *arg, char *dup, int i, int i2, int len_arg);
+void				clean_line_lentoback();
+
 #endif
