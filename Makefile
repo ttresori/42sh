@@ -45,7 +45,8 @@ SRCS		= core/main.c edit_line/list.c core/process.c utils/getenv.c \
 			  builtin/test/exec_other.c builtin/test/test_other.c \
 			  histo/ctrlr_action/ctrlr_action.c histo/ctrlr_action/utils_ctrlr.c \
 			  histo/ctrlr_action/get_line_ctrlr.c histo/ctrlr_action/place_curs_ctrlr.c \
-			  histo/ctrlr_action/prompt_ctrlr.c  histo/ctrlr_action/back_in_history.c
+			  histo/ctrlr_action/prompt_ctrlr.c  histo/ctrlr_action/back_in_history.c \
+			  builtin/fc/builtin_fc.c
 
 
 #
@@ -94,7 +95,7 @@ $(OBJS_DIR)/%.o: %.c
 	@mkdir -p $(OBJS_DIR)/builtin/tabulation	
 	@mkdir -p $(OBJS_DIR)/substitution
 	@mkdir -p $(OBJS_DIR)/builtin/alias
-	@mkdir -p $(OBJS_DIR)/builtin/alias
+	@mkdir -p $(OBJS_DIR)/builtin/fc
 	@$(COMP)
 
 clean:
