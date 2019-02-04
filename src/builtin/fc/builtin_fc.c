@@ -14,7 +14,7 @@ void    print_delimit_history(t_42sh *sh, int start, int stop)
 
     i = 0;
     tmp = sh->history_mark->last;
-    while (i < sh->history_mark->size - 1)
+    while (i < sh->history_mark->size - 2)
     {
         if (i >= start && i <= stop)
             print_nb_and_str(i, tmp->str);
@@ -25,15 +25,27 @@ void    print_delimit_history(t_42sh *sh, int start, int stop)
 
 void    check_for_l_opt(t_42sh *sh)
 {
+    if (sh->argv->argv[1] == NULL)
+    {
+        ft_putl_yellow("Open editor");
+        return ;
+    }
     if (ft_strcmp(sh->argv->argv[1], "-l") == 0)
     {
-        if (sh->argv->argv[2] == NULL)
-            print_delimit_history(sh, sh->history_mark->size - 16, sh->history_mark->size);
-        else if (sh->argv->argv[2] && sh->argv->argv[3] == NULL)
-            print_delimit_history(sh, ft_atoi(sh->argv->argv[2]), sh->history_mark->size);
-        else if (sh->argv->argv[2] && sh->argv->argv[3])
-            print_delimit_history(sh, ft_atoi(sh->argv->argv[2]), ft_atoi(sh->argv->argv[3]));
-    }
+        if (sh->argv->argv[2] == NULL)     // -l NULL
+        {
+            print_delimit_history(sh, sh->history_mark->size - 16,
+            sh->history_mark->size);
+            return ;
+        }
+        if (sh->argv->argv[2] && sh->argv->argv[3] == NULL)    // -l a or 1 NULL
+            print_delimit_history(sh, ft_atoi(sh->argv->argv[2]),
+             sh->history_mark->size);
+        if (check_if_alpha(sh) == 1)
+            return ;
+        if (check_if_digit(sh) == 1)
+            return ;
+    } 
 }
 
 void    builtin_fc(t_42sh *sh)
