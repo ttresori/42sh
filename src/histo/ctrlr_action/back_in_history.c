@@ -54,7 +54,6 @@ static int check_occ_in_dup(t_42sh *sh, char *arg, char *dup)
         if (arg[0] == dup[pos_start])
             if (check_after(arg, dup, pos_start, sh->history_mark->pos_arg) == 1)
             {
-                //back_curs_dup(sh, arg, dup, pos_start, i);
                 sh->stdin->len_line = ft_strlen(dup);
                 sh->history_mark->line_pos = pos_start;
                 sh->history_mark->cursor_pos = sh->prompt_len + pos_start;
@@ -77,15 +76,6 @@ void    back_in_history(t_42sh *sh, char *dup, char *arg)
 {
     print_all_value(sh, dup);
     if (check_occ_in_dup(sh, arg, dup) == 1)
-    {
-      // sh->history_mark->move_curs = 1;
-       //back_curs_str
         return ;
-    }
-    /*else if (check_other_occ_of_arg)
-    {
-        while tmp->
-        strcmp(argc, tmp->str);
-    }*/
-    //sh->history_mark->move_curs = 1;
+    ft_putendl("sdlfjdjsfjdlsfjks");
 }
