@@ -28,6 +28,7 @@ void    check_for_l_opt(t_42sh *sh)
     if (sh->argv->argv[1] == NULL)
     {
         ft_putl_yellow("Open editor");
+        //edit_last_command(sh);
         return ;
     }
     if (ft_strcmp(sh->argv->argv[1], "-l") == 0)
