@@ -57,11 +57,4 @@ void    print_prompt_search(t_42sh *sh, int choice, char *to_print_in, char *to_
         sh->prompt_len += len_in;
     }
     ft_puts_green("`: ");
-    if (to_print_out)
-    {
-        len_out = ft_strlen(to_print_out);
-        sh->stdin->cursor_pos += len_out;
-        sh->stdin->line_pos += len_out;
-        ft_putstr(to_print_out);
-    }
 }

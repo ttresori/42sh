@@ -44,6 +44,15 @@ static void to_exit_ctrlr(t_42sh *sh, char *dup, char *arg)
             return ;
 }
 
+void       reset_history_curs_pos(t_42sh *sh)
+{
+            sh->history_mark->cursor_pos = -1;
+	        sh->history_mark->line_pos = -1;
+            sh->history_mark->nb_moove = -1;
+            sh->history_mark->dup_select = 0;
+            sh->history_mark->is_find = 0;
+}
+
 void       ctrlr_read(t_42sh *sh, char *dup, char *arg)
 {
     int save;
@@ -65,12 +74,8 @@ void       ctrlr_read(t_42sh *sh, char *dup, char *arg)
         }
         else
         {
-            sh->history_mark->cursor_pos = -1;
-	        sh->history_mark->line_pos = -1;
-            sh->history_mark->nb_moove = -1;
-            sh->history_mark->dup_select = 0;
             print_prompt_search(sh, 1, arg, NULL, sh->history_mark->pos_arg);
-            sh->history_mark->is_find = 0;
+            reset_history_curs_pos(sh);
         }
         place_curs_ctrlr(sh, arg, dup);
     }
@@ -88,11 +93,7 @@ void       ctrlr_action(t_42sh *sh) //add nb_line
     sh->history_mark->error_code = 0;
     sh->history_mark->ctrlr_arg = NULL;
     sh->history_mark->pos_arg = 0;
-    sh->history_mark->is_find = 0;
-    sh->history_mark->cursor_pos = -1;
-    sh->history_mark->line_pos = -1;
-    sh->history_mark->nb_moove = -1;
-    sh->history_mark->dup_select = 0;
+    reset_history_curs_pos(sh);
     if (!(arg = (char*)malloc(sizeof(char) * 0)))
         return ;
     clean_line_lentoback(sh->prompt_len);
