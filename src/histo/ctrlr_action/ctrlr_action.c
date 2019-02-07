@@ -55,11 +55,8 @@ void       reset_history_curs_pos(t_42sh *sh)
 
 void       ctrlr_read(t_42sh *sh, char *dup, char *arg)
 {
-    int save;
-
     while (42)
     {
-        save =  sh->history_mark->pos_arg;
         if (!(arg = get_line_ctrlr(sh, arg, dup)))
         {
             to_exit_ctrlr(sh, dup, arg);
