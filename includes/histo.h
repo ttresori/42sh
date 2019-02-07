@@ -20,13 +20,15 @@ typedef struct		s_history_mark
 	char			*ctrlr_arg;
 	int				is_find;
 	int 			pos_arg;
-	int				move_curs;
 	int				pos;
 	int				size;
+	int				cursor_pos;
+	int				line_pos;
+	int				nb_moove;
 }					t_history_mark;
 
 int					check_following(char *to_find, char *search, int start_search, int len_check);
-int 				check_after(char *arg, char *dup, int i, int i2, int len_arg);
+int 				check_after(char *arg, char *dup, int i2, int len_arg);
 void				clean_line_lentoback();
 
 #endif

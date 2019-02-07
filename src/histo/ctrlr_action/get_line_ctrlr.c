@@ -24,7 +24,7 @@ static  char   *get_char(t_42sh *sh, char *arg, long buf, char *dup)
 {
         if (!(check_exit(sh, arg, buf)))
             return (NULL);
-        if (buf == CTRL_R && sh->history_mark->is_find == 1)
+        if (buf == CTRL_R)
         {
             back_in_history(sh, dup, arg);
             return (arg);

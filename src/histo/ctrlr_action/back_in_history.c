@@ -23,33 +23,69 @@ void    print_all_value(t_42sh *sh, char *dup)
     ft_putchar('\n');
 }
 
-void    place_curs_before(t_42sh *sh, char *arg, char *dup, int stop)
+void    back_curs_dup(t_42sh *sh, char *arg, char *dup, int pos_line, int nb_moove)
 {
     int i;
-    int real_return;
 
     i = 0;
-    real_return = 0;
-    while (i < stop)
-    {
-        if (arg[0] == dup[i])
-            if (check_after(arg, dup, 0, i, sh->history_mark->pos_arg - 2))
-                    real_return = i;
-        i++;
-    }
-    ft_putchar('\n');
-    ft_putnbr(real_return);
-    ft_putchar('\n');
-    real_return = real_return - sh->stdin->len_line;
     sh->stdin->len_line = ft_strlen(dup);
-    sh->stdin->line_pos -= real_return;
-    sh->stdin->cursor_pos = sh->prompt_len + sh->stdin->len_line - real_return;
-    while(real_return-- > 0)
-     tputs(tgoto(tgetstr("le", NULL), 1, 0), 1, putchar_custom);
+    sh->history_mark->line_pos = pos_line;
+    sh->history_mark->cursor_pos = sh->prompt_len + pos_line;
+    sh->history_mark->nb_moove = nb_moove;
+    ft_puts_blue(" sh->history_mark->nb_moove  : ");
+    ft_putnbr( sh->history_mark->nb_moove );
+    ft_putchar('\n');
+    ft_putnbr(nb_moove);
+    while(nb_moove-- > 0)
+        tputs(tgoto(tgetstr("le", NULL), 1, 0), 1, putchar_custom);
+}
+
+static int check_occ_in_dup(t_42sh *sh, char *arg, char *dup)
+{
+    int i;
+    int pos_start;
+
+    pos_start = sh->stdin->line_pos - 1;
+    if (pos_start <= 1)
+        return (0);
+    i = 0; 
+    while (pos_start >= 0)
+    {
+        if (arg[0] == dup[pos_start])
+            if (check_after(arg, dup, pos_start, sh->history_mark->pos_arg) == 1)
+            {
+                //back_curs_dup(sh, arg, dup, pos_start, i);
+                sh->stdin->len_line = ft_strlen(dup);
+                sh->history_mark->line_pos = pos_start;
+                sh->history_mark->cursor_pos = sh->prompt_len + pos_start;
+                sh->history_mark->nb_moove = i + (sh->stdin->len_line - sh->stdin->line_pos) + 1;
+                ft_puts_blue("Find occ of : ");
+                ft_puts_red(arg);
+                ft_putl_blue(" in dup");
+                ft_puts_blue("sh->history_mark->nb_moove : ");
+                ft_putnbr(sh->history_mark->nb_moove);
+                ft_putchar('\n');
+                return (1);
+            }
+    pos_start--;
+    i++;
+    }
+    return (1);
 }
 
 void    back_in_history(t_42sh *sh, char *dup, char *arg)
 {
     print_all_value(sh, dup);
+    if (check_occ_in_dup(sh, arg, dup) == 1)
+    {
+      // sh->history_mark->move_curs = 1;
+       //back_curs_str
+        return ;
+    }
+    /*else if (check_other_occ_of_arg)
+    {
+        while tmp->
+        strcmp(argc, tmp->str);
+    }*/
     //sh->history_mark->move_curs = 1;
 }
