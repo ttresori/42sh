@@ -90,7 +90,7 @@ void       ctrlr_action(t_42sh *sh) //add nb_line
     sh->history_mark->pos_arg = 0;
     sh->history_mark->is_find = 0;
     sh->history_mark->cursor_pos = -1;
-	sh->history_mark->line_pos = -1;
+    sh->history_mark->line_pos = -1;
     sh->history_mark->nb_moove = -1;
     sh->history_mark->dup_select = 0;
     if (!(arg = (char*)malloc(sizeof(char) * 0)))
