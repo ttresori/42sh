@@ -19,7 +19,8 @@ void    print_all_value(t_42sh *sh, char *dup)
     ft_putnbr(sh->history_mark->pos_arg);
     ft_putchar('\n');
     ft_puts_blue("character on cursos ");
-    ft_putchar(dup[sh->stdin->line_pos]);
+    if (dup)
+        ft_putchar(dup[sh->stdin->line_pos]);
     ft_putchar('\n');
 }
 
@@ -77,5 +78,11 @@ void    back_in_history(t_42sh *sh, char *dup, char *arg)
     print_all_value(sh, dup);
     if (check_occ_in_dup(sh, arg, dup) == 1)
         return ;
-    ft_putendl("sdlfjdjsfjdlsfjks");
+    else
+    {
+        sh->history_mark->dup_select++;
+        sh->history_mark->line_pos = -1;
+        sh->history_mark->cursor_pos = -1;
+        sh->history_mark->nb_moove = -1;       
+    }
 }

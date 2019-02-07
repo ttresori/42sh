@@ -4,15 +4,18 @@ static char *search_history_ctrl_r(t_42sh *sh, char *to_find)
 {
     char        *sub;
     int         size_list;
+    int         save_dup_select;
     t_history   *tmp;
 
     sub = NULL;
     tmp = NULL;
     tmp = sh->history_mark->begin;
     size_list = sh->history_mark->size;
+    save_dup_select = sh->history_mark->dup_select;
     while (size_list > 0)
     {
-        if (is_in_str(to_find, tmp->str, sh->history_mark->pos_arg) == 0)
+        if ((is_in_str(to_find, tmp->str, sh->history_mark->pos_arg) == 0) 
+        && (save_dup_select-- == 0))
             return ((sub = ft_strdup(tmp->str)));
         tmp = tmp->next;
         size_list--;
@@ -25,7 +28,8 @@ static void to_exit_ctrlr(t_42sh *sh, char *dup, char *arg)
 {
             sh->history_mark->is_find  == 0 \
             ? clean_line_lentoback(sh->history_mark->pos_arg  + 25) \
-            : clean_line_lentoback(sh->history_mark->pos_arg + 16 + ft_strlen(dup));
+            : clean_line_lentoback(sh->history_mark->pos_arg + 16 
+            + ft_strlen(dup));
             prompt(sh->env, sh);
             if (dup && sh->history_mark->error_code == 0)
             {
@@ -61,14 +65,9 @@ void       ctrlr_read(t_42sh *sh, char *dup, char *arg)
         }
         else
         {
-            sh->history_mark->cursor_pos = -1;
-	        sh->history_mark->line_pos = -1;
-            sh->history_mark->is_find = 1;
             print_prompt_search(sh, 1, arg, NULL, sh->history_mark->pos_arg);
             sh->history_mark->is_find = 0;
         }
-      /* if (save == sh->history_mark->pos_arg && sh->history_mark->is_find == 1)
-            sh->history_mark->pos_arg++;*/
         place_curs_ctrlr(sh, arg, dup);
     }
 }
@@ -89,6 +88,7 @@ void       ctrlr_action(t_42sh *sh) //add nb_line
     sh->history_mark->cursor_pos = -1;
 	sh->history_mark->line_pos = -1;
     sh->history_mark->nb_moove = -1;
+    sh->history_mark->dup_select = 0;
     if (!(arg = (char*)malloc(sizeof(char) * 0)))
         return ;
     clean_line_lentoback(sh->prompt_len);
