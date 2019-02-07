@@ -65,6 +65,10 @@ void       ctrlr_read(t_42sh *sh, char *dup, char *arg)
         }
         else
         {
+            sh->history_mark->cursor_pos = -1;
+	        sh->history_mark->line_pos = -1;
+            sh->history_mark->nb_moove = -1;
+            sh->history_mark->dup_select = 0;
             print_prompt_search(sh, 1, arg, NULL, sh->history_mark->pos_arg);
             sh->history_mark->is_find = 0;
         }
