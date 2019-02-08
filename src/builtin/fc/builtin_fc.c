@@ -39,9 +39,8 @@ void    check_for_l_opt(t_42sh *sh)
             sh->history_mark->size);
             return ;
         }
-        if (sh->argv->argv[2] && sh->argv->argv[3] == NULL)    // -l a or 1 NULL
-            print_delimit_history(sh, ft_atoi(sh->argv->argv[2]),
-             sh->history_mark->size);
+        /*if (sh->argv->argv[2] && sh->argv->argv[3] == NULL)    // -l 1 NULL
+            print_delimit_history(sh, ft_atoi(sh->argv->argv[2]), sh->history_mark->size);*/
         if (check_if_alpha(sh) == 1)
             return ;
         if (check_if_digit(sh) == 1)
