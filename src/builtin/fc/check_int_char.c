@@ -86,6 +86,8 @@ static void print_delimit_history_str(t_42sh *sh, char *arg_start, char *stop, i
         tmp = tmp->prev;
         i++;
     }
+    ft_puts_blue("fc: event not found: ");
+    ft_putl_green(arg_start);
 }
 
 int   check_if_alpha(t_42sh *sh)

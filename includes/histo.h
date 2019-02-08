@@ -26,6 +26,9 @@ typedef struct		s_history_mark
 	int				line_pos;
 	int				nb_moove;
 	int				dup_select;
+	//fc//
+	int				print_nb_line;
+	int 			reverse_print;
 }					t_history_mark;
 
 int					check_following(char *to_find, char *search, int start_search, int len_check);
