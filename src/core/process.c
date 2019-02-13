@@ -112,7 +112,7 @@ void			process(t_42sh *sh)
 	if (ft_strcmp(sh->stdin->input, "exit\n") == 0)
 		reset_term(sh);
 	check_substitute_history(sh);
-	if (sh->history_mark->error_code == 0)
+	if (ft_strcmp(sh->stdin->input, "fc\n") != 0 && sh->history_mark->error_code == 0)
 		add_history(sh, sh->stdin->input, sh->path_history);
 	sh->argv->argv = ft_strsplitset(sh->stdin->input, " \t\n");
 	if (!sh->argv->argv[0])

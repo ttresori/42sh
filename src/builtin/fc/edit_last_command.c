@@ -19,9 +19,10 @@ static int fc_edit(t_42sh *sh, char *to_edit)
     char    **to_ed;
 
     status = 0;
-    to_ed = (char**)malloc(sizeof(char*) * 3);
-    to_ed[0] = ft_strdup(FC_EDIT_EDITOR);
-    to_ed[1] = ft_strdup(PATH_TMP);
+    if (!(to_ed = (char**)malloc(sizeof(char*) * 3)))
+        return (-1);
+    FC_EDIT_EDITOR == NULL ? (to_ed[0] = NULL) : (to_ed[0] = ft_strdup(FC_EDIT_EDITOR));
+    FC_EDIT_PATH == NULL ? (to_ed[1] = NULL) : (to_ed[1] = ft_strdup(PATH_TMP));
     to_ed[2] = NULL;
     create_tmp_file(to_edit);
 	father = fork();
@@ -63,7 +64,7 @@ static char *check_dup(char *to_check)
         c = '\0';
         i++;
     }
-    in_file[i] = '\0';
+    in_file[i - 1] = '\0';
     close(fd);
     if (ft_strcmp(to_check, in_file) == 0)
     {
@@ -83,22 +84,25 @@ void    edit_last_command(t_42sh *sh)
     char        *dup;
     int         i;
 
-    tmp = sh->history_mark->begin->next->next;
+    tmp = sh->history_mark->begin->next;
     i = 0;
     //ft_puts_blue(sh->history_mark->last_str);
     if ((fc_edit(sh, tmp->str)) == 1)
     {
         if ((is_modify = check_dup(tmp->str)) != NULL)
         {
-            ft_free_split(sh->argv->argv);
             //if (ft_strschr(is_modify, " \n\t") == 1)
-            sh->argv->argv = ft_strsplitset(is_modify, " \n\t");
-            sh->valide_path = check_access
-            (sh);
-            get_fork(sh);
-            ft_strdel(&sh->valide_path);
-            //get_substitute(sh, 0, is_modify, 2);
+            ft_strdel(&sh->stdin->input);
+            sh->stdin->input = ft_strdup(is_modify);
+            check_substitute_history(sh);
+            if (sh->argv->argv)
+                ft_free_split(sh->argv->argv);
+            sh->argv->argv = ft_strsplitset(sh->stdin->input, " \n\t");
+            sh->valide_path = check_access(sh);
             free(is_modify);
+            get_fork(sh);
+            //ft_strdel(&sh->valide_path);
+            //get_substitute(sh, 0, is_modify, 2);
            //sh->argv->argv[1] = NULL;
            // ft_putl_red(sh->argv->argv[0]);
         }
