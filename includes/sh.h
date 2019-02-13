@@ -382,6 +382,8 @@ BUCKET_CONTENT	*ht_insert(const char *path, const char *name, t_ht *ht);
 void			ht_delete(const char *name, t_ht *ht);
 void			init_hashtable(t_42sh *sh);
 void			print_hashtable(t_ht ht);
+char			*check_access(t_42sh *sh);
+void			get_fork(t_42sh *sh);
 
 /*****************************************************************************\
 |                               INIT_SHELL                                    |

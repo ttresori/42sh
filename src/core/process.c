@@ -23,6 +23,8 @@ void	get_fork(t_42sh *sh)
 		wait(0);
 	if (father == 0)
 	{
+		ft_putl_red(sh->valide_path);
+		ft_putl_red(sh->argv->argv[0]);
 		if ((status = execve(sh->valide_path, sh->argv->argv, sh->copy_env)) == -1)
 			ft_putendl_fd("sh->tokens[0]", 2);
 		exit(status);
