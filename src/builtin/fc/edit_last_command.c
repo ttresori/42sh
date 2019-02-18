@@ -66,7 +66,7 @@ static char *check_dup(char *to_check)
     }
     in_file[i - 1] = '\0';
     close(fd);
-    if (ft_strcmp(to_check, in_file) == 0)
+    if (to_check && in_file && ft_strcmp(to_check, in_file) == 0)
     {
         ft_putl_green("Same");
         free(in_file);
@@ -74,8 +74,6 @@ static char *check_dup(char *to_check)
     }
     return (in_file);
 }
-
-//void	get_substitute(t_42sh *sh, int i, char *substitute, int nb_del)
 
 void    edit_last_command(t_42sh *sh)
 {

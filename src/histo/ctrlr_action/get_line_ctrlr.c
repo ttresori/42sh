@@ -20,27 +20,8 @@ static  char   *check_exit(t_42sh *sh, char *arg, long buf)
         return (arg);
 }
 
-static  char   *get_char(t_42sh *sh, char *arg, long buf, char *dup)
+static  char  *add_char_arg(t_42sh *sh, char *arg, long buf)
 {
-        if (!(check_exit(sh, arg, buf)))
-            return (NULL);
-        if (buf == CTRL_R)
-        {
-            back_in_history(sh, dup, arg);
-            return (arg);
-        }
-        if (buf == DEL)
-        {
-                if (sh->history_mark->pos_arg == 0)
-                {
-                    arg[0] = '\0';
-                    return (arg);
-                }
-                arg = ft_realloc(arg, sh->history_mark->pos_arg, sh->history_mark->pos_arg);
-                arg[sh->history_mark->pos_arg - 1] = '\0';
-                sh->history_mark->pos_arg--;
-                return (arg);
-        }
         if (sh->history_mark->pos_arg == 0)
         {
             arg = ft_realloc(arg, 0, 2);
@@ -62,12 +43,37 @@ static  char   *get_char(t_42sh *sh, char *arg, long buf, char *dup)
                 arg[sh->history_mark->pos_arg] = buf;
                 arg[sh->history_mark->pos_arg + 1] = '\0';
                 sh->history_mark->pos_arg++;
-                //arg[sh->history_mark->pos_arg + 1] = '\0';
-                //sh->history_mark->is_find = 0;
             }
         }
         sh->history_mark->error_code = 0;
         return (arg);
+}
+
+static  char   *get_char(t_42sh *sh, char *arg, long buf, char *dup)
+{
+        if (buf == TAB)
+            return (arg);
+        if (!(check_exit(sh, arg, buf)))
+            return (NULL);
+        if (buf == CTRL_R)
+        {
+            back_in_history(sh, dup, arg);
+            return (arg);
+        }
+        if (buf == DEL)
+        {
+                if (sh->history_mark->pos_arg == 0)
+                {
+                    arg[0] = '\0';
+                    return (arg);
+                }
+                arg = ft_realloc(arg, sh->history_mark->pos_arg, sh->history_mark->pos_arg);
+                arg[sh->history_mark->pos_arg - 1] = '\0';
+                sh->history_mark->pos_arg--;
+                return (arg);
+        }
+        return (add_char_arg(sh, arg, buf));
+
 }
 
 char            *get_line_ctrlr(t_42sh *sh, char *arg, char *dup)

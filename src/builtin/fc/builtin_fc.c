@@ -40,11 +40,11 @@ void    print_delimit_history(t_42sh *sh, int start, int stop)
 
 void    check_for_l_opt(t_42sh *sh)
 {
-   /* if (sh->history_mark->size <= 2)
+   if (sh->history_mark->size < 2)
     {
         ft_putendl("42sh: fc: history specification out of range");
         return ;
-    }*/
+    }
     if (sh->argv->size == 1|| ft_strcmp(sh->argv->argv[1], "-n") == 0)
     {
         edit_last_command(sh);

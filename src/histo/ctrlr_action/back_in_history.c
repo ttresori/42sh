@@ -35,7 +35,7 @@ static int check_occ_in_dup(t_42sh *sh, char *arg, char *dup)
     i = 0; 
     while (pos_start >= 0)
     {
-        if (arg[0] == dup[pos_start])
+        if (arg && dup && arg[0] == dup[pos_start])
             if (check_after(arg, dup, pos_start, sh->history_mark->pos_arg) == 1)
             {
                 sh->history_mark->line_pos = pos_start;

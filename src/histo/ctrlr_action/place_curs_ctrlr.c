@@ -38,13 +38,30 @@ static  int    get_last_c_of_occurence(char *arg, char *dup, int len_arg)
     return (real_return);
 }
 
+static void     move_curs_on_str(t_42sh *sh, int nb_to_move, char *dup)
+{
+    int len_dup;
+
+    len_dup = ft_strlen(dup);
+    nb_to_move = len_dup - nb_to_move;
+    sh->stdin->len_line = len_dup;
+    sh->history_mark->line_pos > -1 
+    ? (sh->stdin->line_pos = sh->history_mark->line_pos) 
+    : (sh->stdin->line_pos = len_dup - nb_to_move);
+    sh->history_mark->cursor_pos > -1 
+    ? (sh->stdin->cursor_pos = sh->history_mark->cursor_pos) 
+    : (sh->stdin->cursor_pos = sh->prompt_len + sh->stdin->len_line - nb_to_move);
+    if (sh->history_mark->nb_moove > -1)
+        nb_to_move = sh->history_mark->nb_moove;
+    while(nb_to_move-- > 0)
+            tputs(tgoto(tgetstr("le", NULL), 1, 0), 1, putchar_custom);
+}
+
 void            place_curs_ctrlr(t_42sh *sh, char *arg, char *dup)
 {
     int i;
     int nb_to_move;
-    int len_dup;
 
-    len_dup = 0;
     i = 0;
     nb_to_move = 0;
     if (!arg || !dup)
@@ -54,22 +71,6 @@ void            place_curs_ctrlr(t_42sh *sh, char *arg, char *dup)
         sh->stdin->line_pos = 0;
         return ;
     }
-    len_dup = ft_strlen(dup);
     if ((nb_to_move = get_last_c_of_occurence(arg, dup, sh->history_mark->pos_arg)) > -1)
-    {
-        nb_to_move = len_dup - nb_to_move;
-        sh->stdin->len_line = len_dup;
-        sh->history_mark->line_pos > -1 
-        ? (sh->stdin->line_pos = sh->history_mark->line_pos) 
-        : (sh->stdin->line_pos = len_dup - nb_to_move);
-        sh->history_mark->cursor_pos > -1 
-        ? (sh->stdin->cursor_pos = sh->history_mark->cursor_pos) 
-        : (sh->stdin->cursor_pos = sh->prompt_len + sh->stdin->len_line - nb_to_move);
-        if (sh->history_mark->nb_moove > -1)
-            nb_to_move = sh->history_mark->nb_moove;
-        while(nb_to_move-- > 0)
-        {
-            tputs(tgoto(tgetstr("le", NULL), 1, 0), 1, putchar_custom);
-        }
-    }
+        move_curs_on_str(sh, nb_to_move, dup);
 }
