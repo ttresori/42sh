@@ -41,13 +41,14 @@ SRCS		= core/main.c edit_line/list.c core/process.c utils/getenv.c \
 # Build
 #
 
-CC 		= gcc
+CC 			= gcc
 OBJS		= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
-CFLAGS		= -Wall -Wextra -Werror $(addprefix -I, $(INC_DIRS)) -g3
+CFLAGS		= -Wall -Wextra $(addprefix -I, $(INC_DIRS)) -g3
 LFLAGS		= -L$(LIB_DIR) -lft -ltermcap
-LIB		= libft.a
+LIB			= libft.a
 COMP		= $(CC) $(CFLAGS) -o $@ -c $<
 LINK		= $(CC) $(CFLAGS) $(LFLAGS) -o $@ $(filter-out $(LIB_DIR)/$(LIB), $^)
+LINKNF		= $(CC) $(CNOFLAGS) $(LFLAGS) -o $@ $(filter-out $(LIB_DIR)/$(LIB), $^)
 NUMCORES 	= $(sysctl -n hw.ncpu)
 _MAKEFLAGS	= -j$(echo $(NUMCORES)+1| bc) -l$(NUMCORES) -C $(LIB_DIR)
 

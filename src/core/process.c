@@ -97,6 +97,11 @@ int			check_builtin(t_42sh *sh)
 		builtin_fc(sh);
 		return (1);
 	}
+	if (ft_strequ(sh->argv->argv[0], "cd") == 1)
+	{
+		builtin_fc(sh);
+		return (1);
+	}
 	return (0);
 }
 
