@@ -97,11 +97,6 @@ int			check_builtin(t_42sh *sh)
 		builtin_fc(sh);
 		return (1);
 	}
-	if (ft_strequ(sh->argv->argv[0], "cd") == 1)
-	{
-		builtin_fc(sh);
-		return (1);
-	}
 	return (0);
 }
 
@@ -141,7 +136,6 @@ void			process(t_42sh *sh)
 
 	prompt(sh->env, sh);
 
-	//if (sh->need_get_line == true)
 	if (get_line(sh) != 1)
 			return ;
 	if (sh->stdin->len_line == 0 || !sh->stdin->input)
