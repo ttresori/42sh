@@ -41,11 +41,15 @@ int		show_name(t_42sh *sh, char *str_to_find, char *path)
 void	show_suggest(t_42sh *sh)
 {
 	char	**line;
+	char	*save_input;
+	char	*tmp;
+	char	*tmp2;
 	int		save_pos;
 	int		i;
 
 	i = 0;
 	line = ft_strsplitset(sh->stdin->input, " \t\n");
+	save_input = ft_strdup(line[0]);
 	//ft_putchar('\n');
 	if (line)
 	{
@@ -58,18 +62,14 @@ void	show_suggest(t_42sh *sh)
 		}
 	}
 	ft_free_split(line);
+	tmp2 = ft_strjoin(save_input, " ");
+	tmp = ft_strjoin(tmp2, sh->stdin->input);
+	free(sh->stdin->input);
+	sh->stdin->input = ft_strdup(tmp);
+	free(tmp);
+	free(tmp2);
 	clean_print(sh);
 	sh->stdin->len_line = ft_strlen(sh->stdin->input);
 	sh->stdin->line_pos = sh->stdin->len_line;
 	move_to_end(sh);
-	//tputs(tgoto(tgetstr("up", NULL), 1, 0), 1, putchar_custom);
-	//move_to_end(sh);
-	//clean_line_lentoback(sh->stdin->cursor_pos);
-	//sh->prompt_len = 0;
-	//prompt(sh->env, sh);
-	//ft_putstr(sh->stdin->input);
-	//sh->stdin->line_pos = ft_strlen(sh->stdin->input);
-	//sh->stdin->len_line = sh->stdin->line_pos;
-	//sh->stdin->cursor_pos += sh->stdin->len_line;
-//	directory = NULL;
 }
