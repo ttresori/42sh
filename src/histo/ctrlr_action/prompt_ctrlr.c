@@ -47,8 +47,7 @@ static void	print_not_find(t_42sh *sh, char *to_print_in, int len_in)
 		sh->stdin->line_pos += len_in;
 		sh->prompt_len += len_in;
 	}
-	ft_puts_green("`: ");
-}
+	ft_puts_green("`: ");}
 
 static void	choice_off(t_42sh *sh, char *to_print_in, char *to_print_out)
 {

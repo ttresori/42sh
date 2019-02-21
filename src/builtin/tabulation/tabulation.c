@@ -121,6 +121,7 @@ char		*detect_word_on_curs(t_42sh *sh)
 		}
 	while (sh->stdin->input[i] != ' ')
 		i--;
+	//if (sh->stdin->input[i + 1] == '$') --> VARIABLE
 	new_input = ft_strsub(sh->stdin->input, 0, i++);
 	if (!(word = (char*)malloc(sizeof(char) * (sh->stdin->len_line - i))))
 		return (NULL);
