@@ -13,46 +13,63 @@
 #include "sh.h"
 #include "dirent.h"
 
-int		show_name(char *str_to_find, char *path)
+static void check_with_completion(t_42sh *sh, char *arg, struct dirent *ent)
+{
+	if (ft_strncmp(arg, ent->d_name, ft_strlen(arg)) == 0)
+	{
+			free(sh->stdin->input);
+			sh->stdin->input = ft_strdup(ent->d_name);
+	}
+}
+
+int		show_name(t_42sh *sh, char *str_to_find, char *path)
 {
 	DIR	*directory;
-	struct dirent *name;
+	struct dirent *ent;
 	int i;
 
 	i = 0;
 	directory = opendir(path);
-	name = readdir(directory);
-	while (name->d_name[i])
-		ft_putendl(&name->d_name[i++]);
-	(void)str_to_find;
+	while ((ent = readdir(directory)) != NULL)
+	{
+		check_with_completion(sh, str_to_find, ent);
+		i++;
+	}
 	return (0);
 }
 
 void	show_suggest(t_42sh *sh)
 {
-//	DIR		*directory;
-//	char	*path;
-	char	*str_to_find;
 	char	**line;
 	int		save_pos;
 	int		i;
-	
-	save_pos = sh->argv->pos_str;
-	str_to_find = ft_strnew(ft_strlen(sh->stdin->input) + 1);
+
 	i = 0;
-	str_to_find[save_pos + 1] = '\0';
-	while (save_pos >= 0)
+	line = ft_strsplitset(sh->stdin->input, " \t\n");
+	//ft_putchar('\n');
+	if (line)
 	{
-		str_to_find[save_pos] = sh->stdin->input[save_pos];
-		save_pos--;
+		if (line[0] == NULL)
+			line[0] = ft_strdup(sh->stdin->input);
+		while (line[i])
+		{
+			show_name(sh, line[i], "./");
+			i++;
+		}
 	}
-	if (!((line = ft_strsplitset(sh->stdin->input, " \t\n"))))
-		show_name(str_to_find, "./");
-	else
-	{
-		show_name(str_to_find, line[1]);
-		ft_free_split(line);
-	}
-	free(str_to_find);
+	ft_free_split(line);
+	clean_print(sh);
+	sh->stdin->len_line = ft_strlen(sh->stdin->input);
+	sh->stdin->line_pos = sh->stdin->len_line;
+	move_to_end(sh);
+	//tputs(tgoto(tgetstr("up", NULL), 1, 0), 1, putchar_custom);
+	//move_to_end(sh);
+	//clean_line_lentoback(sh->stdin->cursor_pos);
+	//sh->prompt_len = 0;
+	//prompt(sh->env, sh);
+	//ft_putstr(sh->stdin->input);
+	//sh->stdin->line_pos = ft_strlen(sh->stdin->input);
+	//sh->stdin->len_line = sh->stdin->line_pos;
+	//sh->stdin->cursor_pos += sh->stdin->len_line;
 //	directory = NULL;
 }

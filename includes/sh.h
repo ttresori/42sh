@@ -27,8 +27,8 @@
 # include "histo.h"
 
 # define OPTION_TEST 15
-# define NB_INPUT_SELECT 8
-# define NB_INPUT 18
+# define NB_INPUT_SELECT 9
+# define NB_INPUT 19
 # define RIGHT_KEY 4414235
 # define LEFT_KEY 4479771
 # define HOME 4741915
@@ -247,6 +247,7 @@ int					check_input_select(t_42sh *sh, long buf);
 
 void				move_to_right_select(t_42sh *sh);
 void				move_to_left_select(t_42sh *sh);
+void				move_to_start(t_42sh *sh);
 
 /*
 ** exit_select_mode
