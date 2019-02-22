@@ -35,7 +35,8 @@ SRCS		= core/main.c edit_line/list.c core/process.c utils/getenv.c \
 			  histo/ctrlr_action/get_line_ctrlr.c histo/ctrlr_action/place_curs_ctrlr.c \
 			  histo/ctrlr_action/prompt_ctrlr.c  histo/ctrlr_action/back_in_history.c \
 			  builtin/fc/builtin_fc.c builtin/fc/check_int_char.c builtin/fc/edit_last_command.c \
-			  histo/ctrlr_action/ctrlr_action.c builtin/tabulation/tabulation.c
+			  histo/ctrlr_action/ctrlr_action.c builtin/tabulation/tabulation.c builtin/tabulation/algo_tabulation.c \
+			  builtin/tabulation/print_tab.c
 
 #
 # Build

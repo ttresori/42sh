@@ -20,6 +20,7 @@
 # include <curses.h>
 # include <pwd.h>
 # include <termios.h>
+# include <dirent.h>
 # include <sys/ioctl.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -556,5 +557,10 @@ void				get_substitute(t_42sh *sh, int i, char *substitute, int nb_del);
 \*****************************************************************************/
 
 void				show_suggest(t_42sh *sh);
+int					check_with_completion(t_42sh *sh, char *arg, struct dirent *ent);
+void				print_folder(t_42sh *sh, char *path);
+void				print_folder_with_compl(t_42sh *sh, char *word, char *path);
+int					show_name(t_42sh *sh, char *str_to_find, char *path);
+char				*detect_word_on_curs(t_42sh *sh);
 
 #endif
