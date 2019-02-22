@@ -35,7 +35,16 @@ void	show_suggest(t_42sh *sh)
 	}
 	line = ft_strsplitset(sh->stdin->input, " \t\n");
 	if (!(tmp = detect_word_on_curs(sh)))
+	{
+		if (line)
+			ft_free_split(line);
+		clean_line_lentoback(sh->stdin->cursor_pos);
+		prompt(sh->env, sh);
+		ft_putstr_fd(sh->stdin->input, 0);
+		sh->stdin->len_line = ft_strlen(sh->stdin->input);
+		sh->stdin->line_pos = sh->stdin->len_line;
 		return ;
+	}
 	if (line)
 	{
 		if (show_name(sh, tmp, "./") == 2)
