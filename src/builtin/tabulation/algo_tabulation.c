@@ -82,7 +82,7 @@ char		*detect_word_on_curs(t_42sh *sh)
 		i--;
 	}
 	new_input = ft_strsub(sh->stdin->input, 0, i++);
-	if (!(word = (char*)malloc(sizeof(char) * (sh->stdin->len_line - i))))
+	if (!(word = (char*)malloc(sizeof(char) * (sh->stdin->len_line))))
 		return (NULL);
 	while (sh->stdin->input[i] != ' ' && sh->stdin->input[i] != '\0')
 		{

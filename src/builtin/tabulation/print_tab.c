@@ -67,10 +67,12 @@ int		show_name(t_42sh *sh, char *str_to_find, char *path)
             }
 			if (!(tmp = ft_strjoin(sh->stdin->input, " ")))
 				return (-1);
-			if (sh->stdin->input)
-				free(sh->stdin->input);
+			free(sh->stdin->input);
 			if (!(sh->stdin->input = ft_strjoin(tmp, ent->d_name)))
-				return (-1);
+            {
+                free(tmp);
+            	return (-1);
+            }
 			free(tmp);
             i++;
 		}

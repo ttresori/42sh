@@ -31,6 +31,7 @@ void	show_suggest(t_42sh *sh)
 		clean_line_lentoback(sh->stdin->cursor_pos);
 		prompt(sh->env, sh);
 		ft_putstr_fd(sh->stdin->input, 0);
+		free(save_input);
 		return ;
 	}
 	line = ft_strsplitset(sh->stdin->input, " \t\n");
@@ -43,6 +44,7 @@ void	show_suggest(t_42sh *sh)
 		ft_putstr_fd(sh->stdin->input, 0);
 		sh->stdin->len_line = ft_strlen(sh->stdin->input);
 		sh->stdin->line_pos = sh->stdin->len_line;
+		free(save_input);
 		return ;
 	}
 	if (line)
@@ -56,6 +58,7 @@ void	show_suggest(t_42sh *sh)
 				clean_line_lentoback(sh->stdin->cursor_pos);
 				prompt(sh->env, sh);
 				ft_putstr_fd(sh->stdin->input, 0);
+				free(save_input);
 				return ;
 			}
 		ft_free_split(line);
@@ -69,6 +72,7 @@ void	show_suggest(t_42sh *sh)
 			clean_line_lentoback(sh->stdin->cursor_pos);
 			prompt(sh->env, sh);
 			ft_putstr_fd(sh->stdin->input, 0);
+			free(save_input);
 			return ;
 		}
 	free(tmp);
@@ -77,4 +81,5 @@ void	show_suggest(t_42sh *sh)
 	sh->stdin->len_line = ft_strlen(sh->stdin->input);
 	sh->stdin->line_pos = sh->stdin->len_line;
 	move_to_end(sh);
+	free(save_input);
 }
